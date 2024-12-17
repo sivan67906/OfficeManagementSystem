@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Configuration\Views\SearchEmployee\**" />
+    <Content Remove="Areas\Configuration\Views\SearchEmployee\**" />
+    <EmbeddedResource Remove="Areas\Configuration\Views\SearchEmployee\**" />
+    <None Remove="Areas\Configuration\Views\SearchEmployee\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Configuration\Controllers\SearchEmployeeController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Configuration\Data\" />
+    <Folder Include="Areas\Configuration\Models\" />
+    <Folder Include="Areas\Settings\Data\" />
+    <Folder Include="Areas\Settings\Models\" />
+    <Folder Include="Areas\Settings\Views\Shared\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\matrica\assets\libs\chart.js\docs\" />
+    <Folder Include="wwwroot\matrica\assets\libs\code-prettify\src\" />
+    <Folder Include="wwwroot\matrica\assets\libs\gmaps\docs\" />
+    <Folder Include="wwwroot\matrica\assets\libs\gmaps\examples\" />
+    <Folder Include="wwwroot\matrica\assets\libs\gmaps\test\" />
+    <Folder Include="wwwroot\matrica\assets\libs\litepicker\types\" />
+    <Folder Include="wwwroot\matrica\assets\libs\raphael\dev\test\" />
+    <Folder Include="wwwroot\matrica\assets\libs\starability\starability-scss\starability\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\Workspace\OMS\OfficeManagementSystem\OMS.UI\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\Workspace\OMS\OfficeManagementSystem\OMS.UI\.editorconfig" />
+  </ItemGroup>
+
+</Project>
