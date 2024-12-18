@@ -1,5 +1,4 @@
-﻿
-$(function () {
+﻿$(function () {
     var PlaceHolderElement = $('#PlaceHolderHere');
 
     $('button[data-toggle="ajax-modal"]').click(function (event) {
@@ -8,7 +7,9 @@ $(function () {
         var decodedUrl = decodeURIComponent(url);
         $.get(decodedUrl).done(function (data, status) {
             PlaceHolderElement.html(data);
-            PlaceHolderElement.find('.modal').modal('show');
+            PlaceHolderElement.parents('.modal').modal('show');
+            //PlaceHolderElement.find('#mdlBusinessLocationShow').modal({ backdrop: 'static', keyboard: false });
+            //PlaceHolderElement.find('.modal-backdrop').remove();
         })
     });
 
