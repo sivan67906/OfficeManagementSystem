@@ -26,6 +26,8 @@ public class BusinessLocationController : Controller
         ViewData["bChild"] = "Business Location";
 
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var countries = await client.GetFromJsonAsync<List<CountryVM>>("Country/GetAll");
+        ViewBag.CountryList = countries;
         var businessLocationList = await client.GetFromJsonAsync<List<BusinessLocationVM>>("BusinessLocation/GetAll");
         return View(businessLocationList);
     }
@@ -48,23 +50,23 @@ public class BusinessLocationController : Controller
         var states = await client.GetFromJsonAsync<List<StateVM>>("State/GetByParentId/?parentId=" + countryId);
 
         return Json(states);
-
-        //List<Product> productLists = new List<Product>();
-        //if (!string.IsNullOrEmpty(categoryId))
-        //{
-        //    catId = Convert.ToInt32(categoryId);
-        //    productLists = _context.Products.Where(s => s.CategoryId.Equals(catId)).ToList();
-        //}
-        //return Json(productLists);
     }
 
+    [HttpPost, ActionName("GetCitiesByStateId")]
+    public async Task<IActionResult> GetCitiesByStateId(string stateId)
+    {
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var cities = await client.GetFromJsonAsync<List<CityVM>>("City/GetByParentId/?parentId=" + stateId);
+
+        return Json(cities);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Create(BusinessLocationVM businessLocation)
     {
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PostAsJsonAsync<BusinessLocationVM>("BusinessLocation/Create", businessLocation);
-        return RedirectToAction("Index");
+        var businesslocation = await client.PostAsJsonAsync("BusinessLocation/Create", businessLocation);
+        return RedirectToAction("BusinessLocation");
     }
 
     [HttpGet]
@@ -72,6 +74,14 @@ public class BusinessLocationController : Controller
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var companies = await client.GetFromJsonAsync<List<CompanyVM>>("Company/GetAll");
+        var countries = await client.GetFromJsonAsync<List<CountryVM>>("Country/GetAll");
+        var states = await client.GetFromJsonAsync<List<StateVM>>("State/GetAll");
+        var cities = await client.GetFromJsonAsync<List<CityVM>>("City/GetAll");
+        ViewBag.CompanyList = companies;
+        ViewBag.CountryList = countries;
+        ViewBag.StateList = states;
+        ViewBag.CityList = cities;
         var businessLocation = await client.GetFromJsonAsync<BusinessLocationVM>("BusinessLocation/GetById/?Id=" + Id);
         return PartialView("_Edit", businessLocation);
     }
@@ -82,7 +92,7 @@ public class BusinessLocationController : Controller
         if (businessLocation.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         await client.PutAsJsonAsync<BusinessLocationVM>("BusinessLocation/Update/", businessLocation);
-        return RedirectToAction("Index");
+        return RedirectToAction("BusinessLocation");
     }
 
     [HttpGet]
@@ -90,6 +100,14 @@ public class BusinessLocationController : Controller
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var companies = await client.GetFromJsonAsync<List<CompanyVM>>("Company/GetAll");
+        var countries = await client.GetFromJsonAsync<List<CountryVM>>("Country/GetAll");
+        var states = await client.GetFromJsonAsync<List<StateVM>>("State/GetAll");
+        var cities = await client.GetFromJsonAsync<List<CityVM>>("City/GetAll");
+        ViewBag.CompanyList = companies;
+        ViewBag.CountryList = countries;
+        ViewBag.StateList = states;
+        ViewBag.CityList = cities;
         var businessLocation = await client.GetFromJsonAsync<BusinessLocationVM>("BusinessLocation/GetById/?Id=" + Id);
         return PartialView("_Delete", businessLocation);
     }
@@ -115,7 +133,7 @@ public class BusinessLocationController : Controller
     //    if (businessLocation.Id == 0) return View();
     //    var client = _httpClientFactory.CreateClient("ApiGatewayCall");
     //    var businessLocationList = Deletewithresponse(client.BaseAddress.AbsoluteUri + "BusinessLocation/Delete", businessLocation);
-    //    return RedirectToAction("Index");
+    //    return RedirectToAction("BusinessLocation");
     //}
 
     //public async Task<HttpResponseMessage> Deletewithresponse(string url, object entity)

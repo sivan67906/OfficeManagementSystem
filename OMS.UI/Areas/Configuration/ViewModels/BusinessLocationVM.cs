@@ -22,5 +22,5 @@ public class BusinessLocationVM
     public string? CityName { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime? UpdatedDate { get; set; }
-    public bool IsActive { get; set; } = true;
+    public bool IsActive { get; set; }
 }

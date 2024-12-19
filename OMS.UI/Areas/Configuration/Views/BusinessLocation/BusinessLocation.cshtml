@@ -1,25 +1,19 @@
 ﻿@model IEnumerable<OMS.UI.Areas.Configuration.ViewModels.BusinessLocationVM>;
-@* <link href="~/matrica/assets/libs/mobius1-selectr/selectr.min.css" rel="stylesheet" type="text/css" /> *@
 
-@section Styles{
-	<!-- Syncfusion ASP.NET Core controls styles -->
-	<link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/28.1.33/material.css" />
-
-	<!-- Syncfusion ASP.NET Core controls styles -->
-	<link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/28.1.33/fluent.css" />
+@section Styles {
 	<style type="text/css">
+		
 	</style>
 }
-	<div class="modal fade" id="mdlBusinessLocationShow">
-		<div class="modal-dialog modal-xl" id="PlaceHolderHere">
-		</div>
+<div class="modal fade" id="mdlBusinessLocationShow" style="">
+	<div class="modal-dialog modal-xl" id="PlaceHolderHere">
 	</div>
+</div>
+
 
 <div class="row">
 	<div class="col-12 col-lg-12">
-
 		<div class="card" style="">
-
 			<div class="card-header">
 				<div class="row align-items-center">
 					<div class="col">
@@ -33,22 +27,8 @@
 					</div><!--end col-->
 				</div>  <!--end row-->
 			</div><!--end card-header-->
-
 			<div class="card-body">
 				<div class="table-responsive">
-					<ejs-grid id="Grid" dataSource="@Model" allowPaging="true" allowSorting="true" allowFiltering="true" allowGrouping="true">
-						<e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
-						<e-grid-columns>
-							<e-grid-column field="Address1" headerText="Order ID" textAlign="Right" width="120"></e-grid-column>
-							<e-grid-column field="Address2" headerText="Customer ID" width="150"></e-grid-column>
-							<e-grid-column field="CountryName" headerText="Order Date" width="130" textAlign="Right" format="yMd"></e-grid-column>
-							<e-grid-column field="StateName" headerText="Ship Country" width="120"></e-grid-column>
-						</e-grid-columns>
-					</ejs-grid>
-					<ejs-multiselect id="CountryId" dataSource="@ViewBag.CountryList" placeholder="Favorite Sports"
-									 mode="CheckBox" enableSelectionOrder="false">
-						<e-multiselect-fields value="Id" text="Name"></e-multiselect-fields>
-					</ejs-multiselect>
 					<table class="table mb-0">
 						<thead class="thead-light">
 							<tr>
@@ -72,7 +52,6 @@
 							@foreach (var item in Model)
 							{
 								<tr>
-
 									<td class="d-none">@Html.DisplayFor(modelItem => item.Id)</td>
 									<td>@item.CompanyId</td>
 									<td>@item.Name</td>
@@ -85,8 +64,7 @@
 									<td>@item.TaxName</td>
 									<td>@item.TaxNumber</td>
 									<td>@item.Latitude</td>
-									 <td>@item.Longitude</td> 
-									@* <td><ejs-calendar id="calendar"></ejs-calendar></td> *@
+									<td>@item.Longitude</td>
 									<td>
 										<button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
 												data-target="#mdlBusinessLocationShow" data-url="@Url.Action($"Edit/{item.Id}")">
@@ -111,20 +89,8 @@
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script type="text/javascript">
 		$(window).on('load', function() {
-		 // $('#mdlBusinessLocationShow').modal('show');
 		 $('#mdlBusinessLocationShow').modal({backdrop: 'static', keyboard: false});
 		});
 	</script>
-<script src="~/matrica/assets/js/pages/app-custom.js" type="text/javascript"></script>
-	<script src="https://cdn.syncfusion.com/ej2/28.1.33/dist/ej2.min.js"></script>
-
+	<script src="~/matrica/assets/js/pages/app-custom.js" type="text/javascript"></script>
 }
-
-@* 	<script src="~/matrica/assets/libs/mobius1-selectr/selectr.min.js"></script>
-	<script src="~/matrica/assets/js/pages/forms-advanced.js"></script> *@
-	@* <script type="text/javascript">
-		$(window).on('load', function() {
-		 $('#mdlBusinessLocationShow').modal({backdrop: 'static', keyboard: false});
-		});
-	</script> *@
-

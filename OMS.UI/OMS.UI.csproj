@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="28.1.33" />
   </ItemGroup>
 
   <ItemGroup>

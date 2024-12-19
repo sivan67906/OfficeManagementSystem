@@ -1,5 +1,5 @@
-﻿using OMS.UI.Areas.Configuration.ViewModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using OMS.UI.Areas.Configuration.ViewModels;
 
 namespace OMS.UI.Areas.Consumer.Controllers;
 [Area("Configuration")]
@@ -62,6 +62,36 @@ public class ConsumerController : Controller
         ViewBag.PlanType = planTypes;
         var consumer = await client.GetFromJsonAsync<ConsumerVM>("Consumer/GetById/?Id=" + Id);
         return PartialView("_Edit", consumer);
+    }
+    [HttpGet]
+    public async Task<IActionResult> SearchByName(string searchByName)
+    {
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/search?consumerName=" + searchByName);
+        return RedirectToAction("Consumer", consumers);
+    }
+    [HttpGet]
+    public async Task<IActionResult> SearchByPhoneNumber(string searchByPhoneNumber)
+    {
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetSearchByPhoneNumber/?consumerPhoneNumber=" + searchByPhoneNumber);
+        return View(consumers);
+    }
+    [HttpGet]
+    public async Task<IActionResult> SearchByDate(string searchByDate)
+    {
+        ConsumerVM consumerVM = new();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetSearchByPhoneNumber/?searchDate=" + searchByDate);
+        return View(consumers);
+    }
+    [HttpGet]
+    public async Task<IActionResult> SearchByDateBetween(string startDate, string endDate)
+    {
+        ConsumerVM consumerVM = new();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetSearchByDateBetween/?startDate=" + startDate + "&endDate=" + endDate);
+        return View(consumers);
     }
 
     [HttpPost]

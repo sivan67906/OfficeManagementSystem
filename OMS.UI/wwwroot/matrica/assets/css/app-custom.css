@@ -83,3 +83,25 @@
 .text-muted {
     color: darkblue !important;
 }
+.screenblocker {
+    opacity: var(--bs-backdrop-opacity);
+    --bs-backdrop-zindex: 1050;
+    --bs-backdrop-bg: #d3d3d3;
+    --bs-backdrop-opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--bs-backdrop-zindex);
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bs-backdrop-bg);
+    transition: opacity .15s linear;
+}
+
+.customspinner {
+    position: absolute;
+    height: 100px;
+    top: 25%;
+    left: 50%;
+    z-index: 9999 !important;
+}

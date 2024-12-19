@@ -48,7 +48,7 @@ if ((document.querySelector('input[name="foo1"]') === null) != true)
 }
 
 //check foo1 named input textbox is there
-if ((document.querySelector('input[id="foo1"]') === null) == false) {
+if ((document.querySelector('input[name="foo1"]') === null) == false) {
     const elem1 = document.querySelector('input[name="foo1"]');
     const datepicker = new Datepicker(elem1, {
         autohide: true,
@@ -57,10 +57,20 @@ if ((document.querySelector('input[id="foo1"]') === null) == false) {
     });
 }
 
+
+if ((document.querySelector('input[name="foo2"]') === null) != true) {
+    const elem2 = document.querySelector('input[name="foo2"]');
+    const datepicker = new Datepicker(elem2, {
+        autohide: true,
+        //todayHighlight: true,
+        //format: "yyyy-mm-dd",
+    });
+}
+
 //check foo1 named input textbox is there
-if ((document.querySelector('input[id="foo1"]') === null) == false) {
-    const elem1 = document.querySelector('input[name="foo1"]');
-    const datepicker = new Datepicker(elem1, {
+if ((document.querySelector('input[name="foo2"]') === null) == false) {
+    const elem2 = document.querySelector('input[name="foo1"]');
+    const datepicker = new Datepicker(elem2, {
         autohide: true,
         //todayHighlight: true,
         //format: "yyyy-mm-dd",

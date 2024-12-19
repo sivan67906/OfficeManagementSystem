@@ -1,12 +1,12 @@
 ﻿@model OMS.UI.Areas.Configuration.ViewModels.BusinessLocationVM;
-<div class="modal fade" id="mdlBusinessLocationShow">
-	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title mt-0" id="">BusinessLocation Setup</h5>
 			</div>
 			<div class="modal-body">
 				<form action="Update">
+					<input id="txtId" type="hidden" name="Id" value="@Model.Id" />
+					<input id="txtAddressId" type="hidden" name="AddressId" value="@Model.AddressId" />
 					<div class="row mt-3">
 						<div class="col-lg-4">CompanyId <span class="text-danger">*</span></div>
 						<div class="col-lg-4">Name <span class="text-danger">*</span></div>
@@ -14,8 +14,13 @@
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
-							<input id="txtCompanyId" type="text" class="form-control" name="CompanyId" placeholder="enter CompanyId" value="@Model.CompanyId">
-							<span asp-validation-for="CompanyId" class="text-danger"></span>
+							@Html.DropDownListFor(c => c.CompanyId,
+																new SelectList(ViewBag.CompanyList, "Id", "Name"),
+																"--", new
+																{
+																	@class = "form-control"})
+							@* <input id="txtCompanyId" type="text" class="form-control" name="CompanyId" placeholder="enter CompanyId" value="@Model.CompanyId">
+							<span asp-validation-for="CompanyId" class="text-danger"></span> *@
 						</div>
 						<div class="col-lg-4">
 							<input id="txtName" type="text" class="form-control" name="Name" placeholder="enter Name" value="@Model.Name">
@@ -28,8 +33,8 @@
 					</div>
 					<div class="row mt-3">
 						<div class="col-lg-4">Address2 <span class="text-danger">*</span></div>
-						<div class="col-lg-4">CountryId <span class="text-danger">*</span></div>
-						<div class="col-lg-4">StateId <span class="text-danger">*</span></div>
+						<div class="col-lg-4">Country <span class="text-danger">*</span></div>
+						<div class="col-lg-4">State <span class="text-danger">*</span></div>
 					</div>
 
 					<div class="row">
@@ -38,23 +43,39 @@
 							<span asp-validation-for="Address2" class="text-danger"></span>
 						</div>
 						<div class="col-lg-4">
-							<input id="txtCountryId" type="text" class="form-control" name="CountryId" placeholder="enter CountryId" value="@Model.CountryId">
-							<span asp-validation-for="CountryId" class="text-danger"></span>
+							@Html.DropDownListFor(c => c.CountryId, new SelectList(ViewBag.CountryList, "Id", "Name"), "--",
+							new {
+								@class = "form-control", 
+								onchange = "loadState(this)"})
+							@* <input id="txtCountryId" type="text" class="form-control" name="CountryId" placeholder="enter CountryId" value="@Model.CountryId">
+							<span asp-validation-for="CountryId" class="text-danger"></span> *@
 						</div>
 						<div class="col-lg-4">
-							<input id="txtStateId" type="text" class="form-control" name="StateId" placeholder="enter StateId" value="@Model.StateId">
-							<span asp-validation-for="StateId" class="text-danger"></span>
+							@Html.DropDownListFor(c => c.CountryId, new SelectList(ViewBag.StateList, "Id", "Name"), "--",
+																new
+																{
+																	@class = "form-control",
+																	onchange = "loadCity(this)"
+																})
+							@* <input id="txtStateId" type="text" class="form-control" name="StateId" placeholder="enter StateId" value="@Model.StateId">
+							<span asp-validation-for="StateId" class="text-danger"></span> *@
 						</div>
 					</div>
 					<div class="row mt-3">
-						<div class="col-lg-4">CityId <span class="text-danger">*</span></div>
+						<div class="col-lg-4">City <span class="text-danger">*</span></div>
 						<div class="col-lg-4">ZipCode <span class="text-danger">*</span></div>
 						<div class="col-lg-4">TaxName</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
-							<input id="txtCityId" type="text" class="form-control" name="CityId" placeholder="enter CityId" value="@Model.CityId">
-							@* <span asp-validation-for="CityId" class="text-danger"></span> *@
+							@Html.DropDownListFor(c => c.CityId,
+																new SelectList(ViewBag.CityList, "Id", "Name"),
+																"--", new
+																{
+																	@class = "form-control"
+																})
+							@*<input id="txtCityId" type="text" class="form-control" name="CityId" placeholder="enter CityId" value="@Model.CityId">
+							 <span asp-validation-for="CityId" class="text-danger"></span> *@
 						</div>
 						<div class="col-lg-4">
 							<input id="txtZipCode" type="text" class="form-control" name="ZipCode" placeholder="enter ZipCode" value="@Model.ZipCode">
@@ -93,8 +114,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
-</div>
 @section Scripts {
 	<script type="text/javascript">
 		$(window).on('load', function() {

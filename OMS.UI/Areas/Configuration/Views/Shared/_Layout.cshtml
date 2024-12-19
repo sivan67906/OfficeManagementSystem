@@ -506,7 +506,7 @@
 								<a class="nav-link" asp-area="Configuration" asp-controller="Consumer" asp-action="Consumer">Consumer</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Configuration" asp-controller="SearchConsumer" asp-action="SearchConsumer">Search Consumer </a>
+								<a class="nav-link" asp-area="Configuration" asp-controller="Consumer" asp-action="Consumer">Search Consumer </a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
 								<a class="nav-link" asp-area="Configuration" asp-controller="Company" asp-action="Company">Company</a>
@@ -686,7 +686,15 @@
 					</div><!--end col-->
 				</div><!-- end page title -->
 				<!--Start Content-->
+				@* <div id="divBlocker" class="d-none">
+					<div id="ldSpinner" class="spinner-border text-primary customspinner" role="status"
+						 style=""></div>
+				</div> *@
 				@RenderBody()
+				<div id="divBlocker" class="d-none">
+					<div id="ldSpinner" class="spinner-border text-primary customspinner" role="status"
+						 style=""></div>
+				</div>
 				<div id="mdlSelectCompany" class="modal fade bs-selectCompany-modal-lg" tabindex="" role="dialog" aria-labelledby="mySelectCompanyModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
