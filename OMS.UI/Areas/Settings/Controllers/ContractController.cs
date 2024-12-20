@@ -1,14 +1,11 @@
-﻿using ConfigurationServices.CQRS.Application.DTOs;
-using Microsoft.AspNetCore.Mvc;
-using OMS.UI.Areas.Configuration.ViewModels;
+﻿using Microsoft.AspNetCore.Mvc;
 using OMS.UI.Areas.Settings.ViewModels;
 
 namespace OMS.UI.Areas.Settings.Controllers;
-[Area("Settings")]
-public class CurrencyController : Controller
+public class ContractController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    public CurrencyController(IHttpClientFactory httpClientFactory)
+    public ContractController(IHttpClientFactory httpClientFactory)
     {
         _httpClientFactory = httpClientFactory;
 
@@ -18,18 +15,18 @@ public class CurrencyController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Currency()
+    public async Task<IActionResult> Contract()
     {
         // Page Title
-        ViewData["pTitle"] = "Currencies Profile";
+        ViewData["pTitle"] = "Contracts Profile";
 
         // Breadcrumb
         ViewData["bGParent"] = "Settings";
-        ViewData["bParent"] = "Currency";
-        ViewData["bChild"] = "Currency View";
+        ViewData["bParent"] = "Contract";
+        ViewData["bChild"] = "Contract View";
 
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var currencyList = await client.GetFromJsonAsync<List<CurrencyVM>>("Currency/GetAll");
+        var currencyList = await client.GetFromJsonAsync<List<ContractVM>>("Contract/GetAll");
 
         return View(currencyList);
     }
@@ -37,17 +34,17 @@ public class CurrencyController : Controller
     [HttpGet]
     public async Task<IActionResult> Create()
     {
-        CurrencyVM company = new();
+        ContractVM company = new();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        return  PartialView("_Create", company);
+        return PartialView("_Create", company);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CurrencyVM currency)
+    public async Task<IActionResult> Create(ContractVM currency)
     {
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PostAsJsonAsync<CurrencyVM>("Currency/Create", currency);
-        return RedirectToAction("Currency");
+        await client.PostAsJsonAsync<ContractVM>("Contract/Create", currency);
+        return RedirectToAction("Contract");
     }
 
     [HttpGet]
@@ -55,17 +52,17 @@ public class CurrencyController : Controller
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var currency = await client.GetFromJsonAsync<CurrencyVM>("Currency/GetById/?Id=" + Id);
+        var currency = await client.GetFromJsonAsync<ContractVM>("Contract/GetById/?Id=" + Id);
         return PartialView("_Edit", currency);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(CurrencyVM currency)
+    public async Task<IActionResult> Update(ContractVM currency)
     {
         if (currency.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PutAsJsonAsync<CurrencyVM>("Currency/Update/", currency);
-        return RedirectToAction("Currency");
+        await client.PutAsJsonAsync<ContractVM>("Contract/Update/", currency);
+        return RedirectToAction("Contract");
     }
 
     [HttpGet]
@@ -73,18 +70,16 @@ public class CurrencyController : Controller
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var currency = await client.GetFromJsonAsync<CurrencyVM>("Currency/GetById/?Id=" + Id);
+        var currency = await client.GetFromJsonAsync<ContractVM>("Contract/GetById/?Id=" + Id);
         return PartialView("_Delete", currency);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Delete(CurrencyVM currency)
+    public async Task<IActionResult> Delete(ContractVM currency)
     {
         if (currency.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.DeleteAsync("Currency/Delete?Id=" + currency.Id);
-        return RedirectToAction("Currency");
+        await client.DeleteAsync("Contract/Delete?Id=" + currency.Id);
+        return RedirectToAction("Contract");
     }
-
-    
 }

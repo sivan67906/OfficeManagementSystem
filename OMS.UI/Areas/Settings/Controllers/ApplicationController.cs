@@ -54,8 +54,8 @@ public class ApplicationController : Controller
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        ViewBag.DefaultCurrency = await client.GetFromJsonAsync<List<CurrencyVM>>("Currency/GetAll");
-        var application = await client.GetFromJsonAsync<CurrencyVM>("Application/GetById/?Id=" + Id);
+        //ViewBag.DefaultCurrency = await client.GetFromJsonAsync<List<CurrencyVM>>("Currency/GetAll");
+        var application = await client.GetFromJsonAsync<ApplicationVM>("Application/GetById/?Id=" + Id);
         return PartialView("_Edit", application);
     }
 

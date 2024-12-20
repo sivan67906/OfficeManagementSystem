@@ -1,4 +1,5 @@
 ﻿@model OMS.UI.Areas.Settings.ViewModels.ApplicationVM;
+<style></style>
 <link href="~/matrica/assets/libs/mobius1-selectr/selectr.min.css" rel="stylesheet" type="text/css" />
 
 <div class="modal-content">
@@ -6,7 +7,7 @@
         <h5 class="modal-title mt-0" id="myEAModalLabel">Edit Application Details</h5>
     </div>
     <div class="modal-body">
-        <form action="Edit">
+        <form action="Update" method="post">
             <div class="row mt-4">
                 <div class="col-lg-3">Date Format</div>
                 <div class="col-lg-3">Time Format</div>
@@ -16,6 +17,7 @@
             <div class="row mt-2">
                 <div class="col-lg-3">
                     <input id="txtId" type="hidden" name="Id" value="@Model.Id" />
+                    <input id="txtId" type="hidden" name="Id" value="@Model.CurrencyId" />
                     <div class="selectr-container selectr-desktop has-selected" style="width: 100%;">
                         <div class="selectr-options-container">
                             <div class="selectr-input-container">
@@ -25,9 +27,9 @@
                             <div class="selectr-notice"></div>
                             <ul class="selectr-options" role="tree" aria-hidden="true" aria-expanded="false"></ul>
                         </div>
-                        <select id="default" tabindex="1" class="selectr-hidden defaultSelectr" value="@Model.DateFormat" name="DateFormat" aria-hidden="true">
+                        <select id="default" tabindex="1" class="selectr-hidden defaultSelectr" value="@Model.DateFormat" asp-for="@Model.DateFormat" name="DateFormat" aria-hidden="true">
                             <option value="">--</option>
-                            <option value="d-m-Y"> d-m-Y (22-11-2024) </option>
+                            <option value="1"> d-m-Y (22-11-2024) </option>
                             <option value="m-d-Y"> m-d-Y (11-22-2024) </option>
                             <option value="Y-m-d"> Y-m-d (2024-11-22) </option>
                             <option value="d.m.Y"> d.m.Y (22.11.2024) </option>
@@ -62,11 +64,11 @@
                             <div class="selectr-notice"></div>
                             <ul class="selectr-options" role="tree" aria-hidden="true" aria-expanded="false"></ul>
                         </div>
-                        <select id="default1" tabindex="2" class="selectr-hidden defaultSelectr" value="@Model.TimeFormat" name="TimeFormat" aria-hidden="true">
+                        <select id="default1" tabindex="2" class="selectr-hidden defaultSelectr"  asp-for="@Model.TimeFormat" name="TimeFormat" aria-hidden="true">
                             <option value="">--</option>
                             <option value="h:i A"> 12 Hour(s) (07:33 PM) </option>
                             <option value="h:i a"> 12 Hour(s) (07:33 pm) </option>
-                            <option value="H:i"> 24 Hour(s) (19:33) </option>
+                            <option value="3"> 24 Hour(s) (19:33) </option>
                         </select>
                         <span asp-validation-for="TimeFormat" class="text-danger"></span>
                     </div>
@@ -81,8 +83,8 @@
                             <div class="selectr-notice"></div>
                             <ul class="selectr-options" role="tree" aria-hidden="true" aria-expanded="false"></ul>
                         </div>
-                        <select id="default2" tabindex="3" class="selectr-hidden defaultSelectr" value="@Model.DefaultTimezone" name="DefaultTimezone" aria-hidden="true">
-                            <option value="">--</option>
+                        <select id="default2" tabindex="3" class="selectr-hidden defaultSelectr" value="@Model.DefaultTimezone" asp-for="@Model.DefaultTimezone" name="DefaultTimezone" aria-hidden="true">
+                            <option value=""selected>--</option>
                             <option value="Africa/Abidjan">Africa/Abidjan</option>
                             <option value="Africa/Accra">Africa/Accra</option>
                             <option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option>
@@ -231,7 +233,7 @@
                             <option value="America/Mexico_City">America/Mexico_City</option>
                             <option value="America/Miquelon">America/Miquelon</option>
                             <option value="America/Moncton">America/Moncton</option>
-                            <option value="America/Monterrey" selected="selected">America/Monterrey</option>
+                            <option value="America/Monterrey">America/Monterrey</option>
                             <option value="America/Montevideo">America/Montevideo</option>
                             <option value="America/Montserrat">America/Montserrat</option>
                             <option value="America/Nassau">America/Nassau</option>
@@ -505,8 +507,8 @@
                         </select>
                         <span asp-validation-for="DefaultTimezone" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="col-lg-3">
+                </div> 
+                @* <div class="col-lg-3">
                     <div class="selectr-container selectr-desktop has-selected" style="width: 100%;">
                         <div class="selectr-options-container">
                             <div class="selectr-input-container">
@@ -517,15 +519,11 @@
                             <ul class="selectr-options" role="tree" aria-hidden="true" aria-expanded="false"></ul>
                         </div>
                         @Html.DropDownListFor(c => c.CurrencyId, new SelectList(ViewBag.DefaultCurrency, "Id", "Name"), "--", new { @class = "form-control" })
-
-                        @* <select id="default3" tabindex="4" class="selectr-hidden defaultSelectr" aria-hidden="true">
-                            <option value="">--</option>
-                            <option value="292"> $ (USD) </option>
-                            <option value="293"> RM (MYR) </option>
+ <select id="default3" class="form-control" asp-for="CurrencyId" asp-items="@(new SelectList(ViewBag.DefaultCurrencies))" >
+                            <!-- Populate options dynamically -->
                         </select>
-                        <span asp-validation-for="DefaultCurrency" class="text-danger"></span> *@
-                    </div>
-                </div>
+                        </div>
+                </div> *@
             </div>
             <div class="row mt-4">
                 <div class="col-lg-3">Language</div>
@@ -544,12 +542,12 @@
                             <div class="selectr-notice"></div>
                             <ul class="selectr-options" role="tree" aria-hidden="true" aria-expanded="false"></ul>
                         </div>
-                        <select id="default4" tabindex="5" class="selectr-hidden defaultSelectr" value="@Model.Language" name="Language" aria-hidden="true">
+                        <select id="default4" tabindex="5" class="selectr-hidden defaultSelectr" value="@Model.Language" asp-for="@Model.Language" name="Language" aria-hidden="true">
                             <option value="">--</option>
                             <option  data-content="
-<span class='flag-icon flag-icon-gb flag-icon-squared'></span> English" value="en">English </option>
+<span class='flag-icon flag-icon-gb flag-icon-squared'></span> English" value="1">English</option>
                             <option data-content="
-<span class='flag-icon flag-icon-sa flag-icon-squared'></span> Arabic" value="ar">Arabic </option>
+<span class='flag-icon flag-icon-sa flag-icon-squared'></span> Arabic" value="2">Arabic </option>
                             <option data-content="
 <span class='flag-icon flag-icon-de flag-icon-squared'></span> German" value="de">German </option>
                             <option data-content="
@@ -570,7 +568,7 @@
                             <div class="selectr-notice"></div>
                             <ul class="selectr-options" role="tree" aria-hidden="true" aria-expanded="false"></ul>
                         </div>
-                        <select id="default5" tabindex="6" class="selectr-hidden defaultSelectr" value="@Model.DatatableRowLimit" name="DatatableRowLimit" aria-hidden="true">
+                        <select id="default5" tabindex="6" class="selectr-hidden defaultSelectr" value="@Model.DatatableRowLimit" asp-for="@Model.DatatableRowLimit" name="DatatableRowLimit" aria-hidden="true">
                             <option value="">--</option>
                             <option value="10">10</option>
                             <option value="25">25</option>
@@ -582,7 +580,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="form-check form-switch form-switch-primary">
-                        <input class="form-check-input" type="checkbox" value="@Model.EmployeeCanExportData" name="EmployeeCanExportData" id="customSwitchPrimary">
+                        <input class="form-check-input" type="checkbox" value="@Model.EmployeeCanExportData" asp-for="@Model.EmployeeCanExportData" name="EmployeeCanExportData" id="customSwitchPrimary">
                         <span asp-validation-for="EmployeeCanExportData" class="text-danger"></span>
                         <label class="form-check-label" for="customSwitchPrimary">
                             Employee can export data
@@ -594,10 +592,10 @@
             <div class="row mt-4 text-end ">
                 <div class="col-lg-12 ">
                     <button type="button" class="btn btn-sm btn-de-danger me-2" data-bs-dismiss="modal"><i class="mdi mdi-window-close me-2"></i>Close</button>
-                    <button type="button" class="btn btn-sm btn-de-primary "><i class="mdi mdi-check-all me-2"></i>Update</button>
+                    <button type="submit" class="btn btn-sm btn-de-primary "><i class="mdi mdi-check-all me-2"></i>Update</button>
                 </div>
-            </div>
-            @* <button type="button" class="btn btn-de-primary mt-4 float-end"><b><i class="mdi mdi-check-all me-2"></i>Save</b></button> *@
+            </div> 
+            
         </form>
     </div>
 </div><!-- /.modal-content -->
