@@ -6,12 +6,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient("ApiGatewayCall", client =>
 {
     //client.BaseAddress = new Uri("http://localhost:6300/"); //Api Gateway
-    client.BaseAddress = new Uri("http://localhost:6201/api/"); //WebApi
+    //client.BaseAddress = new Uri("http://localhost:6201/api/"); //WebApi
     client.BaseAddress = new Uri("http://localhost:6301/api/"); //WebApi
 });
 
 var app = builder.Build();
- 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

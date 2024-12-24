@@ -18,6 +18,9 @@
 	<link href="~/matrica/assets/css/app-custom.css" rel="stylesheet" type="text/css" />
 	<link href="~/matrica/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 	<link href="~/matrica/assets/libs/animate.css/animate.min.css" rel="stylesheet" type="text/css">
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/matrica/assets/js/pages/app-custom.js" type="text/javascript"></script>
+
 	@if (IsSectionDefined("Styles"))
 	{
 		@await RenderSectionAsync("Styles", required: true)
@@ -742,7 +745,7 @@
 	</div>
 	<!-- End Page-Wrapper -->
 	<!-- Javascript  -->
-	<script src="~/lib/jquery/dist/jquery.js"></script>
+	@* <script src="~/lib/jquery/dist/jquery.js"></script> *@
 	<!-- vendor js -->
 	<script src="~/matrica/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="~/matrica/assets/libs/simplebar/simplebar.min.js"></script>
@@ -751,6 +754,23 @@
 	<script src="~/matrica/assets/js/app.js"></script>
 	<script src="~/matrica/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 	<script src="~/matrica/assets/js/pages/sweet-alert.init.js"></script>
+	<script type='text/javascript'>
+		$(document).ready(function() {
+
+		  let hash = document.location.hash;
+		  let prefix = "?tab=";
+
+		  //change hash url on page reload
+		  if (hash) {
+			$('.nav-tabs a[href=\"'+hash.replace(prefix,"")+'\"]').tab('show');
+		  }
+
+		  // change hash url on switch tab
+		  $('.nav-tabs a').on('shown.bs.tab', function (e) {
+			 window.location.hash = e.target.hash.replace("#", "#" + prefix);
+		  });
+		});
+	</script>
 	@if (IsSectionDefined("Scripts"))
 	{
 		@await RenderSectionAsync("Scripts", required: true)
@@ -760,27 +780,6 @@
 		@await RenderSectionAsync("Scripts", required: false)
 	}
 
-	<script type="text/javascript">
-		function loadState(obj) {
-            var value = obj.value;
-			var actionName = "GetStatesByCountryId";
-			var currentUrl = window.location.href;
-			currentUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
-			var url = currentUrl + actionName;
-
-            $.post(url, { countryId: value }, function (data) {
-				PopulateDropDown("#StateId", data);
-            });
-        }
-
-        function PopulateDropDown(dropDownId, list) {
-            $(dropDownId).empty();
-            $(dropDownId).append("<option>--</option>")
-            $.each(list, function (index, row) {
-                $(dropDownId).append("<option value='" + row.id + "'>" + row.name + "</option>")
-            });
-        }
-		</script>
 	<!-- Javascript End -->
 </body>
 </html>

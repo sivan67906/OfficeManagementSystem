@@ -47,4 +47,11 @@
     <None Include="D:\Workspace\OMS\OfficeManagementSystem\OMS.UI\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Areas\Configuration\Views\Project\_Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

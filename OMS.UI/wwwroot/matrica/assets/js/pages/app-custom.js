@@ -16,7 +16,9 @@
         $("#divBlocker").removeClass("d-none").addClass("screenblocker");
         var form = $(this).parents('.modal').find('form');
         $('#PlaceHolderHere').find('input').attr('readonly', 'readonly');
-        $('#PlaceHolderHere').find('button select').attr('disabled', true);
+        $('#PlaceHolderHere').find('button').attr('disabled', true);
+        //$('#PlaceHolderHere option:not(:selected)').attr('disabled', true);
+        $('option:not(:selected)').prop('disabled', true);
 
         var actionName = form.attr('action');
         var currentUrl = window.location.href;
@@ -30,3 +32,4 @@
         })
     });
 });
+

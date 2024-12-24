@@ -6,6 +6,7 @@ public class BusinessLocationVM
     public string? Code { get; set; }
     public string? Name { get; set; }
     public int CompanyId { get; set; }
+    public string? CompanyName { get; set; }
     public int AddressId { get; set; }
     public string? Address1 { get; set; }
     public string? Address2 { get; set; }
