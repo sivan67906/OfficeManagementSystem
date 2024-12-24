@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using OMS.UI.Areas.Configuration.ViewModels;
+using OMS.UI.Areas.Settings.ViewModels;
 
-namespace OMS.UI.Areas.Configuration.Controllers;
-[Area("Configuration")]
+namespace OMS.UI.Areas.Settings.Controllers;
+[Area("Settings")]
 public class ProjectController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
@@ -45,7 +45,7 @@ public class ProjectController : Controller
     {
         if (projSetting.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PutAsJsonAsync<ProjectSettingVM>("ProjectSetting/Update/", projSetting);
+        await client.PutAsJsonAsync("ProjectSetting/Update/", projSetting);
         return RedirectToAction("Project");
     }
 
@@ -65,7 +65,7 @@ public class ProjectController : Controller
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         var projectStatus = await client.GetFromJsonAsync<ProjectStatusVM>("ProjectStatus/GetById/?Id=" + Id);
-        return PartialView("_Edit", projectStatus);
+        return PartialView("~/Areas/Settings/Views/Project/ProjectStatus/_Edit.cshtml", projectStatus);
     }
 
     [HttpPost]
@@ -73,19 +73,81 @@ public class ProjectController : Controller
     {
         if (projectStatus.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PutAsJsonAsync<ProjectStatusVM>("ProjectStatus/Update/", projectStatus);
+        await client.PutAsJsonAsync("ProjectStatus/Update/", projectStatus);
         return RedirectToAction("Project");
     }
 
 
     [HttpPost]
-    public async Task<IActionResult> Delete(int Id)
+    public async Task<IActionResult> DeleteProjectStatus(int Id)
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         await client.DeleteAsync("ProjectStatus/Delete?Id=" + Id);
         return RedirectToAction("Project");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> CreateProjectStatus()
+    {
+        ProjectStatusVM projectStatus = new();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        return PartialView("~/Areas/Settings/Views/Project/ProjectStatus/_Create.cshtml", projectStatus);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateProjectStatus(ProjectStatusVM projectStatus)
+    {
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        await client.PostAsJsonAsync("ProjectStatus/Create", projectStatus);
+        return RedirectToAction("Project");
+    }
+
+    // Project Category
+    [HttpGet]
+    public async Task<IActionResult> EditProjectCategory(int Id)
+    {
+        if (Id == 0) return View();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        var projectCategory = await client.GetFromJsonAsync<ProjectCategoryVM>("ProjectCategory/GetById/?Id=" + Id);
+        return PartialView("~/Areas/Settings/Views/Project/ProjectCategory/_Edit.cshtml", projectCategory);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateProjectCategory(ProjectCategoryVM projectCategory)
+    {
+        if (projectCategory.Id == 0) return View();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        await client.PutAsJsonAsync("ProjectCategory/Update/", projectCategory);
+        return Redirect("Project");
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteProjectCategory(int Id)
+    {
+        if (Id == 0) return View();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        await client.DeleteAsync("ProjectCategory/Delete?Id=" + Id);
+        return RedirectToAction("Project");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> CreateProjectCategory()
+    {
+        ProjectCategoryVM projectCategory = new();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        return PartialView("~/Areas/Settings/Views/Project/ProjectCategory/_Create.cshtml", projectCategory);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateProjectCategory(ProjectCategoryVM projectCategory)
+    {
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        await client.PostAsJsonAsync("ProjectCategory/Create", projectCategory);
+        return RedirectToAction("Project");
+    }
+
 
 
     //[HttpGet]

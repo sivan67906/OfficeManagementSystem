@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OMS.UI.Areas.Configuration.ViewModels;
+using OMS.UI.Areas.Settings.ViewModels;
 
-namespace OMS.UI.Areas.Configuration.ViewComponents.Components.ProjectSettingsComponent;
+namespace OMS.UI.Areas.Settings.ViewComponents.Components.ProjectCategoryComponent;
 
 public class ProjectCategoryViewComponent : ViewComponent
 {

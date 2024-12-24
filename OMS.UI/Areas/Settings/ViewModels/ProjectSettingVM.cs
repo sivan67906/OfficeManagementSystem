@@ -1,4 +1,4 @@
-﻿namespace OMS.UI.Areas.Configuration.ViewModels;
+﻿namespace OMS.UI.Areas.Settings.ViewModels;
 
 public class ProjectSettingVM
 {
