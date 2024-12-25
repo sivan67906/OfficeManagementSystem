@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OMS.UI.Areas.Settings.ViewModels.PlanningVM>;
+﻿@model IEnumerable<OMS.UI.Areas.Settings.ViewModels.TaxVM>;
 
 <div class="modal fade" id="mdlCurrenceyShow">
     <div class="modal-dialog modal-xl" id="PlaceHolderHere">
@@ -12,12 +12,12 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h4 class="card-title">Planning Index</h4>
+                        <h4 class="card-title">Tax Index</h4>
                     </div><!--end col-->
                     <div class="col-auto">
                         <button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
                                 data-target="#mdlCurrenceyShow" data-url="@Url.Action("Create")">
-                            <i class="fas fa-plus me-2"></i>Add Plan
+                            <i class="fas fa-plus me-2"></i>Add Tax
                         </button>
                     </div><!--end col-->
                 </div>  <!--end row-->
@@ -29,15 +29,8 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th class="d-none">@Html.DisplayNameFor(m => m.Id)</th>
-                                    <th>Plan Name</th>
-                                    <th>Plan Price</th>
-                                    <th>Validity</th>
-                                    <th>Employee</th>
-                                    <th>Designation</th>
-                                    <th>Department</th>
-                                    <th>Company</th>
-                                    <th>Roles</th>
-                                    <th>Permission</th>
+                                    <th>Tax Name</th>
+                                    <th>Rate%</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,14 +41,7 @@
 
                                         <td class="d-none">@Html.DisplayFor(modelItem => item.Id)</td>
                                         <td>@item.Name</td>
-                                        <td>@item.PlanPrice</td>
-                                        <td>@item.Validity</td>
-                                        <td>@item.Employee</td>
-                                        <td>@item.Designation</td>
-                                        <td>@item.Department</td>
-                                        <td>@item.Company</td>
-                                        <td>@item.Roles</td>
-                                        <td>@item.Permission</td>
+                                        <td>@item.Rate</td>
                                         <td>
                                             @* <button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
                             data-target="#mdlProductShow" data-url="@Url.Action($"Edit/{item.Id}")">

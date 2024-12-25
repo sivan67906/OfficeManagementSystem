@@ -3,10 +3,10 @@ using OMS.UI.Areas.Settings.ViewModels;
 
 namespace OMS.UI.Areas.Settings.Controllers;
 [Area("Settings")]
-public class TaskController : Controller
+public class TaxController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    public TaskController(IHttpClientFactory httpClientFactory)
+    public TaxController(IHttpClientFactory httpClientFactory)
     {
         _httpClientFactory = httpClientFactory;
 
@@ -16,36 +16,36 @@ public class TaskController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Task()
+    public async Task<IActionResult> Tax()
     {
         // Page Title
-        ViewData["pTitle"] = "Currencies Profile";
+        ViewData["pTitle"] = "Taxes Profile";
 
         // Breadcrumb
         ViewData["bGParent"] = "Settings";
-        ViewData["bParent"] = "Task";
-        ViewData["bChild"] = "Task View";
+        ViewData["bParent"] = "Tax";
+        ViewData["bChild"] = "Tax View";
 
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var TaskList = await client.GetFromJsonAsync<List<TaskVM>>("Task/GetAll");
+        var taxList = await client.GetFromJsonAsync<List<TaxVM>>("Tax/GetAll");
 
-        return View(TaskList);
+        return View(taxList);
     }
 
     [HttpGet]
     public async Task<IActionResult> Create()
     {
-        TaskVM company = new();
+        TaxVM tax = new();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        return PartialView("_Create", company);
+        return PartialView("_Create", tax);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(TaskVM Task)
+    public async Task<IActionResult> Create(TaxVM tax)
     {
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PostAsJsonAsync<TaskVM>("Task/Create", Task);
-        return RedirectToAction("Task");
+        await client.PostAsJsonAsync<TaxVM>("Tax/Create", tax);
+        return RedirectToAction("Tax");
     }
 
     [HttpGet]
@@ -53,17 +53,17 @@ public class TaskController : Controller
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var Task = await client.GetFromJsonAsync<TaskVM>("Task/GetById/?Id=" + Id);
-        return PartialView("_Edit", Task);
+        var tax = await client.GetFromJsonAsync<TaxVM>("Tax/GetById/?Id=" + Id);
+        return PartialView("_Edit", tax);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(TaskVM Task)
+    public async Task<IActionResult> Update(TaxVM tax)
     {
-        if (Task.Id == 0) return View();
+        if (tax.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PutAsJsonAsync<TaskVM>("Task/Update/", Task);
-        return RedirectToAction("Task");
+        await client.PutAsJsonAsync<TaxVM>("Tax/Update/", tax);
+        return RedirectToAction("Tax");
     }
 
     [HttpGet]
@@ -71,16 +71,16 @@ public class TaskController : Controller
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var Task = await client.GetFromJsonAsync<TaskVM>("Task/GetById/?Id=" + Id);
-        return PartialView("_Delete", Task);
+        var tax = await client.GetFromJsonAsync<TaxVM>("Tax/GetById/?Id=" + Id);
+        return PartialView("_Delete", tax);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Delete(TaskVM Task)
+    public async Task<IActionResult> Delete(TaxVM tax)
     {
-        if (Task.Id == 0) return View();
+        if (tax.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.DeleteAsync("Task/Delete?Id=" + Task.Id);
-        return RedirectToAction("Task");
+        await client.DeleteAsync("Tax/Delete?Id=" + tax.Id);
+        return RedirectToAction("Tax");
     }
 }
