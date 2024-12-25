@@ -22,7 +22,6 @@
     <Folder Include="Areas\Configuration\Models\" />
     <Folder Include="Areas\Settings\Data\" />
     <Folder Include="Areas\Settings\Models\" />
-    <Folder Include="Areas\Settings\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="wwwroot\matrica\assets\libs\chart.js\docs\" />
     <Folder Include="wwwroot\matrica\assets\libs\code-prettify\src\" />
@@ -48,7 +47,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Configuration\Views\Project\_Edit.cshtml">
+    <Content Update="Areas\Settings\Views\Project\ProjectCategory\_Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Settings\Views\Project\ProjectCategory\_Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Settings\Views\Project\ProjectStatus\_Edit.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
