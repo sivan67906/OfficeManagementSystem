@@ -79,8 +79,13 @@
 		currentUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
 		var url = currentUrl + actionName;
 		var sendData = form.serialize();
+
+		var updatedSendReminder = $('input[name="IsSendReminder"]').is(":checked");
+		
+		var params = new URLSearchParams(sendData);
+		params.set('IsSendReminder', updatedSendReminder);
 			
-			  $.post(url, sendData).done(function (data, status) {
+			  $.post(url, params.toString()).done(function (data, status) {
 				 $("#divBlocker").addClass("d-none").removeClass("screenblocker");
 				 if (status == "success") {
 							 swalWithBootstrapButtons.fire({ title: "Updated!",

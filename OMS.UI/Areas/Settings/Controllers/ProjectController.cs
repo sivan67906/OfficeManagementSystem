@@ -21,7 +21,7 @@ public class ProjectController : Controller
         ViewData["pTitle"] = "Projects Profile";
 
         // Breadcrumb
-        ViewData["bGParent"] = "Configuration";
+        ViewData["bGParent"] = "Settings";
         ViewData["bParent"] = "Project";
         ViewData["bChild"] = "Project";
 
