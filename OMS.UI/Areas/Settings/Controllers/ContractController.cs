@@ -16,7 +16,7 @@ public class ContractController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Contract()
+    public async Task<IActionResult> Contract(int id=0)
     {
         // Page Title
         ViewData["pTitle"] = "Contracts Profile";
@@ -27,60 +27,105 @@ public class ContractController : Controller
         ViewData["bChild"] = "Contract View";
 
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var currencyList = await client.GetFromJsonAsync<List<ContractVM>>("Contract/GetAll");
+        
+        ContractVM contract;
 
-        return View(currencyList);
+        if (id > 0)
+        {
+            // Fetch the specific contract by ID
+            contract = await client.GetFromJsonAsync<ContractVM>($"Contract/GetById/?Id=" + id);
+        }
+        else
+        {
+            // Fetch all contracts and take the first one
+            var contractList = await client.GetFromJsonAsync<List<ContractVM>>("Contract/GetAll");
+            contract = contractList?.FirstOrDefault();
+        }
+
+        if (contract == null)
+        {
+            return NotFound();
+        }
+
+        return View(contract); // Pass the contract data to the view for editing
+
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Create()
-    {
-        ContractVM company = new();
-        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        return PartialView("_Create", company);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Create(ContractVM currency)
-    {
-        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PostAsJsonAsync<ContractVM>("Contract/Create", currency);
-        return RedirectToAction("Contract");
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> Edit(int Id)
-    {
-        if (Id == 0) return View();
-        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var currency = await client.GetFromJsonAsync<ContractVM>("Contract/GetById/?Id=" + Id);
-        return PartialView("_Edit", currency);
-    }
 
     [HttpPost]
-    public async Task<IActionResult> Update(ContractVM currency)
+    public async Task<IActionResult> Contract(ContractVM updatedContract)
     {
-        if (currency.Id == 0) return View();
-        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PutAsJsonAsync<ContractVM>("Contract/Update/", currency);
-        return RedirectToAction("Contract");
-    }
+        if (!ModelState.IsValid)
+        {
+            return View(updatedContract); // Return the same view with validation errors
+        }
 
-    [HttpGet]
-    public async Task<IActionResult> Delete(int Id)
-    {
-        if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var currency = await client.GetFromJsonAsync<ContractVM>("Contract/GetById/?Id=" + Id);
-        return PartialView("_Delete", currency);
-    }
 
-    [HttpPost]
-    public async Task<IActionResult> Delete(ContractVM currency)
-    {
-        if (currency.Id == 0) return View();
-        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.DeleteAsync("Contract/Delete?Id=" + currency.Id);
-        return RedirectToAction("Contract");
+        // Send the updated contract back to the API
+        var response = await client.PutAsJsonAsync("Contract/Update", updatedContract);
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Redirect to the contract listing page or success message
+            return RedirectToAction("Contract");
+        }
+
+        ModelState.AddModelError("", "Failed to update the contract. Please try again.");
+        return View(updatedContract); // Show the error on the same view
     }
+   
+
+
+//    [HttpGet]
+//    public async Task<IActionResult> Create()
+//    {
+//        ContractVM company = new();
+//        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+//        return PartialView("_Create", company);
+//    }
+
+//    [HttpPost]
+//    public async Task<IActionResult> Create(ContractVM currency)
+//    {
+//        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+//        await client.PostAsJsonAsync<ContractVM>("Contract/Create", currency);
+//        return RedirectToAction("Contract");
+//    }
+
+//    [HttpGet]
+//    public async Task<IActionResult> Edit(int Id)
+//    {
+//        if (Id == 0) return View();
+//        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+//        var currency = await client.GetFromJsonAsync<ContractVM>("Contract/GetById/?Id=" + Id);
+//        return PartialView("_Edit", currency);
+//    }
+
+//    [HttpPost]
+//    public async Task<IActionResult> Update(ContractVM currency)
+//    {
+//        if (currency.Id == 0) return View();
+//        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+//        await client.PutAsJsonAsync<ContractVM>("Contract/Update/", currency);
+//        return RedirectToAction("Contract");
+//    }
+
+//    [HttpGet]
+//    public async Task<IActionResult> Delete(int Id)
+//    {
+//        if (Id == 0) return View();
+//        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+//        var currency = await client.GetFromJsonAsync<ContractVM>("Contract/GetById/?Id=" + Id);
+//        return PartialView("_Delete", currency);
+//    }
+
+//    [HttpPost]
+//    public async Task<IActionResult> Delete(ContractVM currency)
+//    {
+//        if (currency.Id == 0) return View();
+//        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+//        await client.DeleteAsync("Contract/Delete?Id=" + currency.Id);
+//        return RedirectToAction("Contract");
+//    }
 }
