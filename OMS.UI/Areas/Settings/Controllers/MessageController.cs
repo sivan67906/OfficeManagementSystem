@@ -2,6 +2,7 @@
 using OMS.UI.Areas.Settings.ViewModels;
 
 namespace OMS.UI.Areas.Settings.Controllers;
+[Area("Settings")]
 public class MessageController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;

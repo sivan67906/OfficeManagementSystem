@@ -2,6 +2,7 @@
 using OMS.UI.Areas.Settings.ViewModels;
 
 namespace OMS.UI.Areas.Settings.Controllers;
+[Area("Settings")]
 public class PlanningController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
