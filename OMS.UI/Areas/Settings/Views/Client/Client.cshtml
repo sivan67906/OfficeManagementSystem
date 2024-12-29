@@ -1,6 +1,8 @@
-﻿@model IEnumerable<OMS.UI.Areas.Settings.ViewModels.ClientVM>;
-
-<div id="PlaceHolderHere"></div>
+﻿ @model IEnumerable<OMS.UI.Areas.Settings.ViewModels.ClientVM>;
+<div class="modal fade" id="mdlProductShow">
+    <div class="modal-dialog modal-xl" id="PlaceHolderHere">
+    </div>
+</div><div id="PlaceHolderHere"></div>
 
 <div class="row">
     <div class="col-12 col-lg-12">
@@ -49,7 +51,7 @@
                                         <td>@item.ClientName</td>
                                         <td>@item.Email</td>
                                         <td>@item.CompanyName</td>
-                                        <td>@item.Address1</td>
+                                        <td>@item.Address1 @item.Address2</td>
                                         <td>@item.PhoneNumber</td>
                                         <td>
                                             @* <button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"

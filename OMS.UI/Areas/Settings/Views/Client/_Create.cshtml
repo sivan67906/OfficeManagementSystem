@@ -1,9 +1,10 @@
 ﻿@model OMS.UI.Areas.Settings.ViewModels.ClientVM
-<div class="modal fade" id="mdlProductShow">
-	<div class="modal-dialog modal-xl">
+
+
+
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mt-0" id="">Lead Agent Setup</h5>
+				<h5 class="modal-title mt-0" id="">Client Setup</h5>
 			</div>
 			<div class="modal-body">
 				<form action="Create">
@@ -45,12 +46,13 @@
                                 <label for="example-text-input">
                                     Company Name <span class="f-14 mr-1 text-danger">*</span>
                                 </label>
-                                <select class="form-select mt-2" aria-label="Default select example" name="CompanyName">
+                                @Html.DropDownListFor(c => c.CompanyId, new SelectList(ViewBag.CompanyList, "Id", "Name"), "--", new { @class = "form-control mt-2" })
+                               @*  <select class="form-select mt-2" aria-label="Default select example" name="CompanyName">
                                     <option value="" selected>--</option>
                                     <option value="1">Meta</option>
                                     <option value="2">Apple</option>
                                     <option value="3">Microsoft</option>
-                                </select>
+                                </select> *@
                                 <span asp-validation-for="CompanyName" class="text-danger"></span>
                             </div>
                         </div>
@@ -96,14 +98,22 @@
                                 <label for="example-text-input">
                                     Country
                                 </label>
-                                <select id="countryDropdown" class="form-select mt-2" name="Country">
+                                @Html.DropDownListFor(c => c.CountryId,
+                                         new SelectList(ViewBag.CountryList, "Id", "Name"),
+                                         "--", new
+                                         {
+                                     @class = "form-control mt-2"
+                                         ,
+                                             onchange = "loadState(this)"
+                                         })
+                                @* <select id="countryDropdown" class="form-select mt-2" name="Country">
                                     <option selected>--</option>
                                     <option>USA</option>
                                     <option>Canada</option>
                                     <option>UK</option>
                                     <option>Australia</option>
                                 </select>
-                                <span asp-validation-for="Country"  class="text-danger"></span>
+                                <span asp-validation-for="Country"  class="text-danger"></span> *@
                             </div>
                         </div>
                         <div class="col-lg-3 g-2">
@@ -111,14 +121,17 @@
                                 <label for="tax">
                                     State
                                 </label>
-                                <select id="countryDropdown" class="form-select mt-2" name="State">
+                                <select class="form-control mt-2" name="StateId" id="StateId" onchange="loadCity(this)">
+                                    <option value="">--</option>
+                                </select>
+                                @* <select id="countryDropdown" class="form-select mt-2" name="State">
                                     <option selected>--</option>
                                     <option>California</option>
                                     <option>Texas</option>
                                     <option>Ontario</option>
                                     <option>Grater Landon</option>
                                 </select>
-                                <span asp-validation-for="State" class="text-danger"></span>
+                                <span asp-validation-for="State" class="text-danger"></span> *@
                             </div>
                         </div>
                         <div class="col-lg-3 g-2">
@@ -126,7 +139,10 @@
                                 <label for="tax">
                                     City
                                 </label>
-                                <select id="countryDropdown"name="City" class="form-select mt-2">
+                                <select class="form-control mt-2" name="CityId" id="CityId">
+                                    <option value="">--</option>
+                                </select>
+                                @* <select id="countryDropdown"name="City" class="form-select mt-2">
                                     <option selected>--</option>
                                     <option>Los Angeles</option>
                                     <option>Austin</option>
@@ -134,7 +150,7 @@
                                     <option>London</option>
                                     <option>Sydney</option>
                                 </select>
-                                <span asp-validation-for="City" class="text-danger"></span>
+                                <span asp-validation-for="City" class="text-danger"></span> *@
                             </div>
                         </div>
                         <div class="col-lg-3 g-2">
@@ -169,12 +185,42 @@
 				</form>
 			</div>
 		</div>
-	</div>
-</div>
-@section Scripts {
+	
+
 	<script type="text/javascript">
 		$(window).on('load', function() {
 		 $('#mdlProductShow').modal({backdrop: 'static', keyboard: false});
 		});
 	</script>
-}
+<script type="text/javascript">
+       function loadState(obj) {
+           var value = obj.value;
+        var actionName = "GetStatesByCountryId";
+        var currentUrl = window.location.href;
+        currentUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
+        var url = currentUrl + actionName;
+
+       $.post(url, { countryId: value }, function (data) {
+            PopulateDropDown("#StateId", data);
+           });
+       }
+       function loadCity(obj) {
+           var value = obj.value;
+        var actionName = "GetCitiesByStateId";
+        var currentUrl = window.location.href;
+        currentUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
+        var url = currentUrl + actionName;
+
+    $.post(url, { stateId: value }, function (data) {
+            PopulateDropDown("#CityId", data);
+           });
+       }
+
+       function PopulateDropDown(dropDownId, list) {
+           $(dropDownId).empty();
+           $(dropDownId).append("<option>--</option>")
+           $.each(list, function (index, row) {
+               $(dropDownId).append("<option value='" + row.id + "'>" + row.name + "</option>")
+           });
+       }
+</script>
