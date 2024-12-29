@@ -29,7 +29,7 @@
                         </div>
                         <select id="default" tabindex="1" class="selectr-hidden defaultSelectr" value="@Model.DateFormat" asp-for="@Model.DateFormat" name="DateFormat" aria-hidden="true">
                             <option selected>--</option>
-                            <option value="1"> d-m-Y (22-11-2024) </option>
+                            <option value="dd-mm-yyyy"> d-m-Y (22-11-2024) </option>
                             <option value="m-d-Y"> m-d-Y (11-22-2024) </option>
                             <option value="Y-m-d"> Y-m-d (2024-11-22) </option>
                             <option value="d.m.Y"> d.m.Y (22.11.2024) </option>
@@ -66,9 +66,9 @@
                         </div>
                         <select id="default1" tabindex="2" class="selectr-hidden defaultSelectr"  asp-for="@Model.TimeFormat" name="TimeFormat" aria-hidden="true">
                             <option selected>--</option>
-                            <option value="h:i A"> 12 Hour(s) (07:33 PM) </option>
-                            <option value="h:i a"> 12 Hour(s) (07:33 pm) </option>
-                            <option value="3"> 24 Hour(s) (19:33) </option>
+                            <option value="12 Hour(s) (07:33 PM)"> 12 Hour(s) (07:33 PM) </option>
+                            <option value="12 Hour(s) (07:33 pm)"> 12 Hour(s) (07:33 pm) </option>
+                            <option value="24 Hour(s) (19:33)"> 24 Hour(s) (19:33) </option>
                         </select>
                         <span asp-validation-for="TimeFormat" class="text-danger"></span>
                     </div>
@@ -508,7 +508,7 @@
                         <span asp-validation-for="DefaultTimezone" class="text-danger"></span>
                     </div>
                 </div> 
-                @* <div class="col-lg-3">
+                <div class="col-lg-3">
                     <div class="selectr-container selectr-desktop has-selected" style="width: 100%;">
                         <div class="selectr-options-container">
                             <div class="selectr-input-container">
@@ -518,12 +518,12 @@
                             <div class="selectr-notice"></div>
                             <ul class="selectr-options" role="tree" aria-hidden="true" aria-expanded="false"></ul>
                         </div>
-                        @Html.DropDownListFor(c => c.CurrencyId, new SelectList(ViewBag.DefaultCurrency, "Id", "Name"), "--", new { @class = "form-control" })
- <select id="default3" class="form-control" asp-for="CurrencyId" asp-items="@(new SelectList(ViewBag.DefaultCurrencies))" >
+                        @Html.DropDownListFor(c => c.CurrencyId, new SelectList(ViewBag.DefaultCurrency, "Id", "DisplayValue"), "--", new { @class = "form-control" })
+ @* <select id="default3" class="form-control" asp-for="CurrencyId" asp-items="@(new SelectList(ViewBag.DefaultCurrencies))" >
                             <!-- Populate options dynamically -->
-                        </select>
+                        </select> *@
                         </div>
-                </div> *@
+                </div>
             </div>
             <div class="row mt-4">
                 <div class="col-lg-3">Language</div>

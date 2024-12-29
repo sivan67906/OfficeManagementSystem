@@ -52,11 +52,31 @@ public class ApplicationController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(int Id)
     {
-        if (Id == 0) return View();
-        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        //if (Id == 0) return View();
+        //var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         //ViewBag.DefaultCurrency = await client.GetFromJsonAsync<List<CurrencyVM>>("Currency/GetAll");
+        //var application = await client.GetFromJsonAsync<ApplicationVM>("Application/GetById/?Id=" + Id);
+        //return PartialView("_Edit", application);
+
+
+        if (Id == 0) return View();
+
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+
+        // Fetch the currencies and concatenate CurrencySymbol and CurrencyCode for display
+        var currencies = await client.GetFromJsonAsync<List<CurrencyVM>>("Currency/GetAll");
+        ViewBag.DefaultCurrency = currencies?.Select(c => new
+        {
+            Id = c.Id,
+            DisplayValue = $"{c.CurrencySymbol} - {c.CurrencyCode}"
+        }).ToList();
+
+        // Fetch the application data by ID
         var application = await client.GetFromJsonAsync<ApplicationVM>("Application/GetById/?Id=" + Id);
+
+        // Return the partial view with the application data
         return PartialView("_Edit", application);
+
     }
 
     [HttpPost]

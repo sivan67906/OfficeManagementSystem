@@ -1,10 +1,9 @@
 ﻿@model OMS.UI.Areas.Settings.ViewModels.ClientVM;
 
-<div class="modal fade" id="mdlProductShow">
-	<div class="modal-dialog modal-xl">
+
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mt-0" id="">Edit Lead Agent Details</h5>
+				<h5 class="modal-title mt-0" id="">Edit Client Details</h5>
 			</div>
 			<div class="modal-body">
 				<form action="Update">
@@ -50,13 +49,19 @@
                                 <label for="example-text-input">
                                     Company Name <span class="f-14 mr-1 text-danger">*</span>
                                 </label>
-                                <select class="form-select mt-2" aria-label="Default select example" name="CompanyName" Value="@Model.CompanyName">
+                                @Html.DropDownListFor(c => c.CompanyId,
+                                         new SelectList(ViewBag.CompanyList, "Id", "Name"),
+                                         "--", new
+                                         {
+                                             @class = "form-control mt-2"
+                                         })
+                               @*  <select class="form-select mt-2" aria-label="Default select example" name="CompanyName" Value="@Model.CompanyName">
                                     <option value="" selected>--</option>
                                     <option value="1">Meta</option>
                                     <option value="2">Apple</option>
                                     <option value="3">Microsoft</option>
                                 </select>
-                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                <span asp-validation-for="CompanyName" class="text-danger"></span> *@
 
                             </div>
                         </div>
@@ -104,14 +109,20 @@
                                 <label for="example-text-input">
                                     Country
                                 </label>
-                                <select id="countryDropdown" class="form-select mt-2" name="Country" value="@Model.Country">
+                                @Html.DropDownListFor(c => c.CountryId, new SelectList(ViewBag.CountryList, "Id", "Name"), "--",
+                                         new
+                                         {
+                                             @class = "form-control mt-2",
+                                             onchange = "loadState(this)"
+                                         })
+                                @* <select id="countryDropdown" class="form-select mt-2" name="Country" value="@Model.Country">
                                     <option selected>--</option>
                                     <option>USA</option>
                                     <option>Canada</option>
                                     <option>UK</option>
                                     <option>Australia</option>
                                 </select>
-                                <span asp-validation-for="Country" class="text-danger"></span>
+                                <span asp-validation-for="Country" class="text-danger"></span> *@
 
                             </div>
                         </div>
@@ -120,14 +131,20 @@
                                 <label for="tax">
                                     State
                                 </label>
-                                <select id="countryDropdown" class="form-select mt-2" value="@Model.State" name="State">
+                                @Html.DropDownListFor(c => c.CountryId, new SelectList(ViewBag.StateList, "Id", "Name"), "--",
+                                         new
+                                         {
+                                             @class = "form-control mt-2",
+                                             onchange = "loadCity(this)"
+                                         })
+                                @* <select id="countryDropdown" class="form-select mt-2" value="@Model.State" name="State">
                                     <option selected>--</option>
                                     <option>California</option>
                                     <option>Texas</option>
                                     <option>Ontario</option>
                                     <option>Grater Landon</option>
                                 </select>
-                                <span asp-validation-for="State" class="text-danger"></span>
+                                <span asp-validation-for="State" class="text-danger"></span> *@
 
                             </div>
                         </div>
@@ -136,7 +153,13 @@
                                 <label for="tax">
                                     City
                                 </label>
-                                <select id="countryDropdown" class="form-select mt-2" value="@Model.City" name="City">
+                                @Html.DropDownListFor(c => c.CityId,
+                                         new SelectList(ViewBag.CityList, "Id", "Name"),
+                                         "--", new
+                                         {
+                                             @class = "form-control mt-2"
+                                         }) 
+                                @* <select id="countryDropdown" class="form-select mt-2" value="@Model.City" name="City">
                                     <option selected>--</option>
                                     <option>Los Angeles</option>
                                     <option>Austin</option>
@@ -144,7 +167,7 @@
                                     <option>London</option>
                                     <option>Sydney</option>
                                 </select>
-                                <span asp-validation-for="City" class="text-danger"></span>
+                                <span asp-validation-for="City" class="text-danger"></span> *@
 
                             </div>
                         </div>
@@ -183,8 +206,7 @@
 			</form>
 
 		</div>
-	</div>
-</div>
+	
 </div>
 @section Scripts {
 	<script type="text/javascript">
