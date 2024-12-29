@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OMS.UI.Areas.Settings.ViewModels;
 
-namespace OMS.UI.Areas.Settings.ViewComponents.Components.RecruitFooterSettingComponent;
+namespace OMS.UI.Areas.Settings.ViewComponents.Components.Recruit.RecruitCustomQuestionSettingComponent;
 
 public class RecruitFooterSettingViewComponent : ViewComponent
 {

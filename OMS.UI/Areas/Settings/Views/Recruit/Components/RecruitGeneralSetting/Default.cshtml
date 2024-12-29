@@ -2,10 +2,10 @@
 @model RecruitGeneralSettingVM
 <link href="~/matrica/assets/libs/dropify/css/dropify.css" rel="stylesheet" type="text/css" />
 
-<div class="modal fade" id="mdlProjectStatusShow" style="">
+@* <div class="modal fade" id="mdlProjectStatusShow" style="">
 	<div class="modal-dialog" id="PlaceHolderHere">
 	</div>
-</div>
+</div> *@
 <div class="card">
 	<div class="card-header">
 		<div class="row align-items-center">
@@ -69,8 +69,8 @@
 				{
 				<div class="col-lg-2">
 					<div class="form-check custom-control custom-checkbox mt-4 mb-2">
-							<input type="hidden" name="GeneralCBSettings[@i].IsChecked" value="false" />
-							<input type="checkbox" class="form-check-input form-check-input-custom" id="checkbox-@Model.GeneralCBSettings[i].Id" name="GeneralCBSettings[@i].IsChecked" value="true" @(Model.GeneralCBSettings[i].IsChecked ? "checked" : "") />
+						<input type="hidden" name="GeneralCBSettings[@i].IsChecked" value="false" />
+						<input type="checkbox" class="form-check-input form-check-input-custom" id="checkbox-@Model.GeneralCBSettings[i].Id" name="GeneralCBSettings[@i].IsChecked" value="true" @(Model.GeneralCBSettings[i].IsChecked ? "checked" : "") />
 						<label class="custom-control-label labelcustom" for="checkbox-@Model.GeneralCBSettings[i].Id">@Model.GeneralCBSettings[i].Name</label>
 						<input type="hidden" name="GeneralCBSettings[@i].Id" value="@Model.GeneralCBSettings[i].Id" />
 						<input type="hidden" name="GeneralCBSettings[@i].Name" value="@Model.GeneralCBSettings[i].Name" />

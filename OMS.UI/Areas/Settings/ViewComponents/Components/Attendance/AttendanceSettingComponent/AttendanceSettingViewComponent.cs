@@ -5,8 +5,8 @@ namespace OMS.UI.Areas.Settings.ViewComponents.Components.Project.ProjectSetting
 
 public class AttendanceSettingViewComponent : ViewComponent
 {
-    public IViewComponentResult Invoke(List<ProjectSettingVM> projectSettings)
+    public IViewComponentResult Invoke(List<AttendanceSettingVM> attendanceSetting)
     {
-        return View(projectSettings);
+        return View(attendanceSetting);
     }
 }

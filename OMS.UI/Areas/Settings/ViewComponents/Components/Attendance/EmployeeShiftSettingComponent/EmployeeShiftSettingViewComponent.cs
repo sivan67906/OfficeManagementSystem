@@ -5,8 +5,8 @@ namespace OMS.UI.Areas.Settings.ViewComponents.Components.Project.ProjectCategor
 
 public class EmployeeShiftSettingViewComponent : ViewComponent
 {
-    public IViewComponentResult Invoke(List<ProjectCategoryVM> projectCategories)
+    public IViewComponentResult Invoke(List<EmployeeShiftSettingVM> employeeShiftSettings)
     {
-        return View(projectCategories);
+        return View(employeeShiftSettings);
     }
 }
