@@ -46,7 +46,7 @@
 			<div class="main-icon-menu-body">
 				<div class="position-reletive h-100" data-simplebar style="overflow-x: hidden;">
 					<ul class="nav nav-tabs" role="tablist" id="tab-menu">
-						<li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard" data-bs-trigger="hover">
+						@* <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard" data-bs-trigger="hover">
 							<a href="#SettingsDashboard" id="dashboard-tab" class="nav-link">
 								<i class="ti ti-smart-home menu-icon"></i>
 							</a><!--end nav-link-->
@@ -87,24 +87,10 @@
 								<i class="fas fa-warehouse menu-icon fa15-custom"></i>
 							</a><!--end nav-link-->
 						</li>
-						@* <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Events" data-bs-trigger="hover">
-							<a href="#hrefEvents" id="event-tab" class="nav-link">
-								<i class="ti ti-calendar-event menu-icon"></i>
-							</a><!--end nav-link-->
-						</li> *@
-						@* <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Message" data-bs-trigger="hover">
-							<a href="#hrefMessage" id="message-tab" class="nav-link">
-								<i class="mdi mdi-message-text-outline menu-icon"></i>
-							</a><!--end nav-link-->
-						</li> *@
+					
 						<li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Broadcast" data-bs-trigger="hover">
 							<a href="#hrefBroadcast" id="broadcast-tab" class="nav-link">
 								<i class="ti ti-clipboard menu-icon"></i>
-							</a><!--end nav-link-->
-						</li>
-						@* <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Ticket" data-bs-trigger="hover">
-							<a href="#hrefTicket" id="ticket-tab" class="nav-link">
-								<i class="ti ti-headset menu-icon"></i>
 							</a><!--end nav-link-->
 						</li> *@
 						<li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Settings" data-bs-trigger="hover">
@@ -432,13 +418,13 @@
 								<a class="nav-link" asp-area="Settings" asp-controller="Project" asp-action="Project">Project</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Project" asp-action="Task">Task</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="Task" asp-action="Task">Task</a>
 							</li><!--end nav-item-->
 							@* <li class="nav-item">
 								<a class="nav-link" asp-area="Settings" asp-controller="Company" asp-action="Project">Project</a>
 							</li><!--end nav-item--> *@
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Employee" asp-action="Timesheet">Timesheet</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="Timesheet" asp-action="Timesheet">Timesheet</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
 								<a class="nav-link" asp-area="Settings" asp-controller="Payment" asp-action="Payment">Payment</a>
@@ -447,10 +433,10 @@
 								<a class="nav-link" asp-area="Settings" asp-controller="Company" asp-action="Assets">Asset</a>
 							</li><!--end nav-item--> *@
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Company" asp-action="Message">Message</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="Message" asp-action="Message">Message</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Support" asp-action="Ticket">Ticket</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="Ticket" asp-action="Ticket">Ticket</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
 								<a class="nav-link" asp-area="Settings" asp-controller="Currency" asp-action="Currency">Currency</a>
@@ -462,7 +448,7 @@
 								<a class="nav-link" asp-area="Settings" asp-controller="Tax" asp-action="Tax">Tax</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Purchase" asp-action="Index">Purchase</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="Purchase" asp-action="Purchase">Purchase</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
 								<a class="nav-link" asp-area="Settings" asp-controller="Recruit" asp-action="Recruit">Recruit</a>
@@ -471,19 +457,19 @@
 								<a class="nav-link" asp-area="Settings" asp-controller="Company" asp-action="SMS">SMS</a>
 							</li><!--end nav-item--> *@
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Company" asp-action="Notifications">Notification</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="NotificationMain" asp-action="NotificationMain">Notification</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Employee" asp-action="Attendance">Attendance</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="Attendance" asp-action="Attendance">Attendance</a>
 							</li><!--end nav-item-->
 							@* <li class="nav-item">
 								<a class="nav-link" asp-area="Settings" asp-controller="Company" asp-action="Index">Leaves</a>
 							</li><!--end nav-item--> *@
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Employee" asp-action="LeavesType">Leaves</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="LeavesType" asp-action="LeavesType">Leaves</a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
-								<a class="nav-link" asp-area="Settings" asp-controller="Employee" asp-action="TimeLog">Time Log</a>
+								<a class="nav-link" asp-area="Settings" asp-controller="TimeLog" asp-action="TimeLog">Time Log</a>
 							</li><!--end nav-item-->
 							@* <li class="nav-item">
 								<a class="nav-link" asp-area="Settings" asp-controller="Company" asp-action="Security">Security</a>
@@ -507,9 +493,6 @@
 						<ul class="navbar-nav">
 							<li class="nav-item">
 								<a class="nav-link" asp-area="Configuration" asp-controller="Consumer" asp-action="Consumer">Consumer</a>
-							</li><!--end nav-item-->
-							<li class="nav-item">
-								<a class="nav-link" asp-area="Configuration" asp-controller="Consumer" asp-action="Consumer">Search Consumer </a>
 							</li><!--end nav-item-->
 							<li class="nav-item">
 								<a class="nav-link" asp-area="Configuration" asp-controller="Company" asp-action="Company">Company</a>
