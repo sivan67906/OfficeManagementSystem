@@ -14,6 +14,12 @@ namespace ConfigurationServices.CQRS.MVC.Areas.Settings.Controllers
         }
         public async Task<IActionResult> LeadStatus(string searchQuery = null)
         {
+            ViewData["pTitle"] = "Lead Status Profile";
+
+            // Breadcrumb
+            ViewData["bGParent"] = "Settings";
+            ViewData["bParent"] = "Lead Status";
+            ViewData["bChild"] = "Lead Status View";
             var client = _httpClientFactory.CreateClient("ApiGatewayCall");
             //var productList = await client.GetFromJsonAsync<List<ProductVM>>("Product/GetAll");
 

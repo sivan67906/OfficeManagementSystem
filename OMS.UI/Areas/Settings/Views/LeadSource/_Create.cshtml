@@ -1,10 +1,9 @@
 ﻿@using ConfigurationServices.CQRS.MVC.Areas.Settings.Models
 @model LeadSourceVM
-<div class="modal fade" id="mdlProductShow">
-	<div class="modal-dialog modal-xl">
+
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mt-0" id="">Product Setup</h5>
+				<h5 class="modal-title mt-0" id="">Lead Source Setup</h5>
 			</div>
 			<div class="modal-body">
 				<form action="Create">
@@ -26,12 +25,8 @@
 				</form>
 			</div>
 		</div>
-	</div>
-</div>
-@section Scripts {
+	
+
 	<script type="text/javascript">
-		$(window).on('load', function() {
-		 $('#mdlProductShow').modal({backdrop: 'static', keyboard: false});
-		});
+		
 	</script>
-}

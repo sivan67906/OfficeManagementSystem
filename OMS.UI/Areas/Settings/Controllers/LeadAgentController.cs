@@ -14,12 +14,12 @@ namespace OMS.UI.Areas.Settings.Controllers
         }
         public async Task<IActionResult> LeadAgent(string searchQuery = null)
         {
-            ViewData["pTitle"] = "Application Profile";
+            ViewData["pTitle"] = "Lead Agents Profile";
 
             // Breadcrumb
             ViewData["bGParent"] = "Settings";
-            ViewData["bParent"] = "Application";
-            ViewData["bChild"] = "Application View";
+            ViewData["bParent"] = "Lead Agent";
+            ViewData["bChild"] = "Lead Agent View";
 
             var client = _httpClientFactory.CreateClient("ApiGatewayCall");
             //var productList = await client.GetFromJsonAsync<List<ProductVM>>("Product/GetAll");

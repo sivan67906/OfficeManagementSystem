@@ -14,6 +14,12 @@ namespace ConfigurationServices.CQRS.MVC.Areas.Settings.Controllers
         }
         public async Task<IActionResult> LeadSource(string searchQuery = null)
         {
+            ViewData["pTitle"] = "Lead Sources Profile";
+
+            // Breadcrumb
+            ViewData["bGParent"] = "Settings";
+            ViewData["bParent"] = "Lead Source";
+            ViewData["bChild"] = "Lead Source View";
             var client = _httpClientFactory.CreateClient("ApiGatewayCall");
             //var productList = await client.GetFromJsonAsync<List<ProductVM>>("Product/GetAll");
 

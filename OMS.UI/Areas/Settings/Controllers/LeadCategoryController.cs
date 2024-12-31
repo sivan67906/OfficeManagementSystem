@@ -14,6 +14,12 @@ namespace OMS.UI.Areas.Settings.Controllers
         }
         public async Task<IActionResult> LeadCategory(string searchQuery = null)
         {
+            ViewData["pTitle"] = "Lead Categories Profile";
+
+            // Breadcrumb
+            ViewData["bGParent"] = "Settings";
+            ViewData["bParent"] = "Lead Category";
+            ViewData["bChild"] = "Lead Category View";
             var client = _httpClientFactory.CreateClient("ApiGatewayCall");
             //var productList = await client.GetFromJsonAsync<List<ProductVM>>("Product/GetAll");
 
