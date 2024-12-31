@@ -1,12 +1,12 @@
-﻿@model OMS.UI.Areas.Configuration.ViewModels.BusinessTypeVM;
-<div class="modal fade" id="mdlBusinessTypeShow">
+﻿@model OMS.UI.Areas.Configuration.ViewModels.PlanTypeVM;
+<div class="modal fade" id="mdlPlanTypeShow">
 	<div class="modal-dialog modal">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mt-0" id="">Edit BusinessType Details</h5>
+				<h5 class="modal-title mt-0" id="">Edit PlanType Details</h5>
 			</div>
 			<div class="modal-body">
-				<form action="Update">
+				<form action="Create">
 					<input id="txtId" type="hidden" name="Id" value="@Model.Id" />
 					<div class="row mt-3">
 						<div class="col-lg-4">Code <span class="text-danger">*</span></div>
@@ -15,11 +15,11 @@
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
-							<input id="txtCode" type="text" class="form-control" name="Code" placeholder="enter Code" value="@Model.Code">
+							<input id="txtCode" type="text" class="form-control" name="Code" placeholder="enter Code" value="">
 							<span asp-validation-for="Code" class="text-danger"></span>
 						</div>
 						<div class="col-lg-4">
-							<input id="txtName" type="text" class="form-control" name="Name" placeholder="enter Name" value="@Model.Name">
+							<input id="txtName" type="text" class="form-control" name="Name" placeholder="enter Name" value="">
 							<span asp-validation-for="Name" class="text-danger"></span>
 						</div>
 						<div class="col-lg-4">
@@ -28,7 +28,7 @@
 					<div class="row mt-4 text-end ">
 						<div class="col-lg-12 ">
 							<button type="button" class="btn btn-sm btn-de-danger me-2" data-bs-dismiss="modal"><i class="mdi mdi-window-close me-2"></i>Close</button>
-							<button type="button" class="btn btn-sm btn-de-primary" data-save="modal"><i class="mdi mdi-check-all me-2"></i>Update</button>
+							<button type="button" class="btn btn-sm btn-de-primary" data-save="modal"><i class="mdi mdi-check-all me-2"></i>Create</button>
 						</div>
 					</div>
 				</form>
@@ -39,7 +39,7 @@
 @section Scripts {
 	<script type="text/javascript">
 		$(window).on('load', function() {
-		 $('#mdlBusinessTypeShow').modal({backdrop: 'static', keyboard: false});
+		 $('#mdlPlanTypeShow').modal({backdrop: 'static', keyboard: false});
 		});
 	</script>
 }

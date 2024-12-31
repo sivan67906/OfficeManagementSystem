@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OMS.UI.Areas.Configuration.ViewModels.BusinessTypeVM>;
+﻿@model IEnumerable<OMS.UI.Areas.Configuration.ViewModels.BusinessCategoryVM>;
 
 <div id="PlaceHolderHere">
 </div>
@@ -11,12 +11,12 @@
 			<div class="card-header">
 				<div class="row align-items-center">
 					<div class="col">
-						<h4 class="card-title">BusinessType Index</h4>
+						<h4 class="card-title">BusinessCategory Index</h4>
 					</div><!--end col-->
 					<div class="col-auto">
 						<button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
-								data-target="#mdlBusinessTypeShow" data-url="@Url.Action("Create")">
-							<i class="fas fa-plus me-2"></i>Add BusinessType
+								data-target="#mdlBusinessCategoryShow" data-url="@Url.Action("Create")">
+							<i class="fas fa-plus me-2"></i>Add BusinessCategory
 						</button>
 					</div><!--end col-->
 				</div>  <!--end row-->
@@ -28,7 +28,8 @@
 						<thead class="thead-light">
 							<tr>
 								<th class="d-none">@Html.DisplayNameFor(m => m.Id)</th>
-								<th>Name</th>
+								<th>Category Type</th>
+								<th>Category Name</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -37,17 +38,18 @@
 							{
 								<tr>
 									<td class="d-none">@Html.DisplayFor(modelItem => item.Id)</td>
+									<td>@item.BusinessTypeName</td>
 									<td>@item.Name</td>
 									<td>
 										<button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
-												data-target="#mdlBusinessTypeShow" data-url="@Url.Action($"Edit/{item.Id}")">
+												data-target="#mdlBusinessCategoryShow" data-url="@Url.Action($"Edit/{item.Id}")">
 											<i class="las la-pen text-secondary font-16"></i>
 										</button>
 										@* <button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
-												data-target="#mdlBusinessTypeShow" data-url="@Url.Action($"Delete/{item.Id}")">
+												data-target="#mdlBusinessCategoryShow" data-url="@Url.Action($"Delete/{item.Id}")">
 											<i class="las la-trash-alt text-secondary font-16"></i>
 										</button> *@
-										<a id="deleteBT" name="Id" href="#" class="ms-2"
+										<a id="deleteBC" name="Id" href="#" class="ms-2"
 										   data-target="" data-url="@Url.Action($"Delete/{item.Id}")">
 											<i class="las la-trash-alt text-secondary font-16"></i>
 										</a>
@@ -66,10 +68,10 @@
 	<script src="~/matrica/assets/js/pages/app-custom.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(window).on('load', function() {
-		 $('#mdlBusinessTypeShow').modal({backdrop: 'static', keyboard: false});
+		 $('#mdlBusinessCategoryShow').modal({backdrop: 'static', keyboard: false});
 		});
 
-		$(document).on("click", "#deleteBT", function (e) {
+		$(document).on("click", "#deleteBC", function (e) {
 		   e.preventDefault();
 
 		   const swalWithBootstrapButtons = Swal.mixin({
@@ -92,7 +94,7 @@
 			  allowOutsideClick: false
 		   }).then((result) => {
 			  if (result.isConfirmed) {
-				 delBusinessType(this);
+				 delBusinessCategory(this);
 			  } else if (
 				 result.dismiss === Swal.DismissReason.cancel
 			  ) {
@@ -105,7 +107,7 @@
 			  }
 		   });
 
-		   function delBusinessType(param) {
+		   function delBusinessCategory(param) {
 			  var url = $(param).data('url');
 			  url = decodeURIComponent(url);
 			  var sendData = "Id=" + url.split('/').filter(Boolean).pop() + "";

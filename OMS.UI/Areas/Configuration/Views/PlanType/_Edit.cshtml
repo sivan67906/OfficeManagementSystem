@@ -1,9 +1,9 @@
-﻿@model OMS.UI.Areas.Configuration.ViewModels.BusinessTypeVM;
-<div class="modal fade" id="mdlBusinessTypeShow">
+﻿@model OMS.UI.Areas.Configuration.ViewModels.PlanTypeVM;
+<div class="modal fade" id="mdlPlanTypeShow">
 	<div class="modal-dialog modal">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mt-0" id="">Edit BusinessType Details</h5>
+				<h5 class="modal-title mt-0" id="">Edit PlanType Details</h5>
 			</div>
 			<div class="modal-body">
 				<form action="Update">
@@ -39,7 +39,7 @@
 @section Scripts {
 	<script type="text/javascript">
 		$(window).on('load', function() {
-		 $('#mdlBusinessTypeShow').modal({backdrop: 'static', keyboard: false});
+		 $('#mdlPlanTypeShow').modal({backdrop: 'static', keyboard: false});
 		});
 	</script>
 }
