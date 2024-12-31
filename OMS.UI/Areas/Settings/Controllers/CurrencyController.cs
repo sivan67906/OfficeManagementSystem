@@ -1,6 +1,4 @@
-﻿using ConfigurationServices.CQRS.Application.DTOs;
-using Microsoft.AspNetCore.Mvc;
-using OMS.UI.Areas.Configuration.ViewModels;
+﻿using Microsoft.AspNetCore.Mvc;
 using OMS.UI.Areas.Settings.ViewModels;
 
 namespace OMS.UI.Areas.Settings.Controllers;
@@ -39,7 +37,7 @@ public class CurrencyController : Controller
     {
         CurrencyVM company = new();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        return  PartialView("_Create", company);
+        return PartialView("_Create", company);
     }
 
     [HttpPost]
@@ -86,5 +84,5 @@ public class CurrencyController : Controller
         return RedirectToAction("Currency");
     }
 
-    
+
 }

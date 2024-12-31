@@ -1,5 +1,4 @@
-﻿using ConfigurationServices.CQRS.Application.DTOs;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OMS.UI.Areas.Configuration.ViewModels;
 
 namespace OMS.UI.Areas.Configuration.Controllers;
@@ -39,7 +38,7 @@ public class CompanyController : Controller
         CompanyVM company = new();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         ViewBag.BusinessTypes = await client.GetFromJsonAsync<List<BusinessTypeVM>>("BusinessType/GetAll");
-        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<CategoryVM>>("Category/GetAll");
+        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<BusinessCategoryVM>>("Category/GetAll");
         return PartialView("_Create", company);
     }
 
@@ -57,7 +56,7 @@ public class CompanyController : Controller
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         ViewBag.BusinessTypes = await client.GetFromJsonAsync<List<BusinessTypeVM>>("BusinessType/GetAll");
-        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<CategoryVM>>("Category/GetAll");
+        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<BusinessCategoryVM>>("Category/GetAll");
         var company = await client.GetFromJsonAsync<CompanyVM>("Company/GetById/?Id=" + Id);
         return PartialView("_Edit", company);
     }
@@ -77,7 +76,7 @@ public class CompanyController : Controller
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         ViewBag.BusinessTypes = await client.GetFromJsonAsync<List<BusinessTypeVM>>("BusinessType/GetAll");
-        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<CategoryVM>>("Category/GetAll");
+        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<BusinessCategoryVM>>("Category/GetAll");
         var company = await client.GetFromJsonAsync<CompanyVM>("Company/GetById/?{Id}=" + Id);
         return PartialView("_Delete", company);
     }

@@ -1,20 +1,17 @@
 ﻿@model OMS.UI.Areas.Configuration.ViewModels.BusinessTypeVM;
-
-	<style type="text/css">
-	</style>
-
 <div class="modal fade" id="mdlBusinessTypeShow">
 	<div class="modal-dialog modal">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mt-0" id="">BusinessType Setup</h5>
+				<h5 class="modal-title mt-0" id="">Edit BusinessType Details</h5>
 			</div>
 			<div class="modal-body">
 				<form action="Create">
+					<input id="txtId" type="hidden" name="Id" value="@Model.Id" />
 					<div class="row mt-3">
 						<div class="col-lg-4">Code <span class="text-danger">*</span></div>
 						<div class="col-lg-4">Name <span class="text-danger">*</span></div>
-						<div class="col-lg-4"><span class="text-danger">*</span></div>
+						<div class="col-lg-4"> <span class="text-danger">*</span></div>
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
@@ -39,9 +36,10 @@
 		</div>
 	</div>
 </div>
-
-	<script>
+@section Scripts {
+	<script type="text/javascript">
 		$(window).on('load', function() {
 		 $('#mdlBusinessTypeShow').modal({backdrop: 'static', keyboard: false});
 		});
 	</script>
+}

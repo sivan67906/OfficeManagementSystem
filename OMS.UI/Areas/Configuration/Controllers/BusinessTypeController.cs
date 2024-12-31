@@ -66,23 +66,12 @@ public class BusinessTypeController : Controller
         return RedirectToAction("BusinessType");
     }
 
-    //[HttpGet]
-    //public async Task<IActionResult> Delete(int Id)
-    //{
-    //    if (Id == 0) return View();
-    //    var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-    //    ViewBag.BusinessTypes = await client.GetFromJsonAsync<List<BusinessTypeVM>>("BusinessType/GetAll");
-    //    ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<CategoryVM>>("Category/GetAll");
-    //    var businessType = await client.GetFromJsonAsync<BusinessTypeVM>("BusinessType/GetById/?{Id}=" + Id);
-    //    return PartialView("_Delete", businessType);
-    //}
-
-    //[HttpPost]
-    //public async Task<IActionResult> Delete(BusinessTypeVM businessType)
-    //{
-    //    if (businessType.Id == 0) return View();
-    //    var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-    //    await client.DeleteAsync("BusinessType/Delete?Id=" + businessType.Id);
-    //    return RedirectToAction("BusinessType");
-    //}
+    [HttpPost]
+    public async Task<IActionResult> Delete(int Id)
+    {
+        if (Id == 0) return View();
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        await client.DeleteAsync("BusinessType/Delete?Id=" + Id);
+        return RedirectToAction("BusinessType");
+    }
 }

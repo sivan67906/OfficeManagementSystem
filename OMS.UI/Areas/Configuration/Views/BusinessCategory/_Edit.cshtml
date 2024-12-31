@@ -1,25 +1,38 @@
-﻿@model OMS.UI.Areas.Configuration.ViewModels.BusinessTypeVM;
-<div class="modal fade" id="mdlBusinessTypeShow">
-	<div class="modal-dialog modal">
+﻿@model OMS.UI.Areas.Configuration.ViewModels.BusinessCategoryVM
+
+<script type="text/javascript">
+
+</script>
+
+<div class="modal fade" id="mdlBusinessCategoryShow">
+	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mt-0" id="">Edit BusinessType Details</h5>
+				<h5 class="modal-title mt-0" id="">Edit BusinessCategory Details</h5>
 			</div>
 			<div class="modal-body">
 				<form action="Update">
 					<input id="txtId" type="hidden" name="Id" value="@Model.Id" />
 					<div class="row mt-3">
-						<div class="col-lg-4">Code <span class="text-danger">*</span></div>
-						<div class="col-lg-4">Name <span class="text-danger">*</span></div>
-						<div class="col-lg-4"> <span class="text-danger">*</span></div>
+						<div class="col-lg-4">Business Type <span class="text-danger">*</span></div>
+						<div class="col-lg-4">Business Name <span class="text-danger">*</span></div>
+						<div class="col-lg-4"></div>
 					</div>
 					<div class="row">
+
 						<div class="col-lg-4">
-							<input id="txtCode" type="text" class="form-control" name="Code" placeholder="enter Code" value="@Model.Code">
-							<span asp-validation-for="Code" class="text-danger"></span>
+							@Html.DropDownListFor(c => c.BusinessTypeId,
+																new SelectList(ViewBag.BusinessTypeList, "Id", "Name"),
+																"--", new
+																{
+																	@class = "form-control"
+																,
+																	onchange = ""
+																})
 						</div>
+						
 						<div class="col-lg-4">
-							<input id="txtName" type="text" class="form-control" name="Name" placeholder="enter Name" value="@Model.Name">
+							<input id="txtCode" type="text" class="form-control" name="Name" placeholder="enter Name" value="@Model.Name">
 							<span asp-validation-for="Name" class="text-danger"></span>
 						</div>
 						<div class="col-lg-4">
@@ -39,7 +52,11 @@
 @section Scripts {
 	<script type="text/javascript">
 		$(window).on('load', function() {
-		 $('#mdlBusinessTypeShow').modal({backdrop: 'static', keyboard: false});
+		 $('#mdlBusinessCategoryShow').modal({backdrop: 'static', keyboard: false});
 		});
 	</script>
+
+
+
+
 }
