@@ -64,3 +64,14 @@
 		</div>
 	</div>
 </div>
+
+@section Scripts {
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/matrica/assets/js/pages/app-custom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(window).on('load', function() {
+		 $('#mdlTimesheetShow').modal({backdrop: 'static', keyboard: false});
+		});
+	</script>
+
+}

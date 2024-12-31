@@ -9,7 +9,12 @@
         $.get(decodedUrl).done(function (data, status) {
             PlaceHolderElement.html(data);
             $("#divBlocker").addClass("d-none").removeClass("screenblocker");
-            PlaceHolderElement.parents('.modal').modal('show');
+            if ((PlaceHolderElement.find('.modal').length) == 0) {
+                PlaceHolderElement.parents('.modal').modal('show');
+            }
+            else {
+                PlaceHolderElement.find('.modal').modal('show');
+            }
         })
     });
 
@@ -20,7 +25,12 @@
         $.get(decodedUrl).done(function (data, status) {
             PlaceHolderElement1.html(data);
             $("#divBlocker").addClass("d-none").removeClass("screenblocker");
-            PlaceHolderElement1.parents('.modal').modal('show');
+            if ((PlaceHolderElement1.find('.modal').length) == 0) {
+                PlaceHolderElement1.parents('.modal').modal('show');
+            }
+            else {
+                PlaceHolderElement1.find('.modal').modal('show');
+            }
         })
     });
 
@@ -39,7 +49,12 @@
         var sendData = form.serialize();
         $.post(url, sendData).done(function (data, status) {
             $("#divBlocker").addClass("d-none").removeClass("screenblocker");
-            PlaceHolderElement.find('.modal').modal('hide');
+            if ((PlaceHolderElement.find('.modal').length) == 0) {
+                PlaceHolderElement.parents('.modal').modal('hide');
+            }
+            else {
+                PlaceHolderElement.find('.modal').modal('hide');
+            }
             location.reload();
         })
     });
@@ -59,7 +74,12 @@
         var sendData = form.serialize();
         $.post(url, sendData).done(function (data, status) {
             $("#divBlocker").addClass("d-none").removeClass("screenblocker");
-            PlaceHolderElement1.find('.modal').modal('hide');
+            if ((PlaceHolderElement1.find('.modal').length) == 0) {
+                PlaceHolderElement1.parents('.modal').modal('hide');
+            }
+            else {
+                PlaceHolderElement1.find('.modal').modal('hide');
+            }
             location.reload();
         })
     });
