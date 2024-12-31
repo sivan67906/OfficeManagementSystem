@@ -27,17 +27,17 @@ public class TicketController : Controller
 
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
 
-        //var ticketAgents = await client.GetFromJsonAsync<List<TicketAgentsVM>>("TicketAgent/GetAll");
-        //var ticketGroups = await client.GetFromJsonAsync<List<TicketGroupsVM>>("TicketGroup/GetAll");
-        //var ticketTypes = await client.GetFromJsonAsync<List<TicketTypesVM>>("TicketType/GetAll");
+        //var ticketAgents = await client.GetFromJsonAsync<List<TicketAgentVM>>("TicketAgent/GetAll");
+        //var ticketGroups = await client.GetFromJsonAsync<List<TicketGroupVM>>("TicketGroup/GetAll");
+        //var ticketTypes = await client.GetFromJsonAsync<List<TicketTypeVM>>("TicketType/GetAll");
         //var ticketChannels = await client.GetFromJsonAsync<List<TicketChannelVM>>("TicketChannel/GetAll");
-        //var ticketReplyTemplates = await client.GetFromJsonAsync<List<TicketReplyTemplatesVM>>("TicketReplyTemplate/GetAll");
+        //var ticketReplyTemplates = await client.GetFromJsonAsync<List<TicketReplyTemplateVM>>("TicketReplyTemplate/GetAll");
 
-        var ticketAgents = new List<TicketAgentsVM>();
-        var ticketGroups = new List<TicketGroupsVM>();
-        var ticketTypes = new List<TicketTypesVM>();
+        var ticketAgents = new List<TicketAgentVM>();
+        var ticketGroups = new List<TicketGroupVM>();
+        var ticketTypes = new List<TicketTypeVM>();
         var ticketChannels = new List<TicketChannelVM>();
-        var ticketReplyTemplates = new List<TicketReplyTemplatesVM>();
+        var ticketReplyTemplates = new List<TicketReplyTemplateVM>();
 
 
 
