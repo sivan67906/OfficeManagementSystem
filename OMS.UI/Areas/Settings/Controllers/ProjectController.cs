@@ -50,11 +50,11 @@ public class ProjectController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> DefaultStatusUpdate(int Id)
+    public async Task<IActionResult> DefaultStatusUpdate(ProjectStatusVM projSetting)
     {
-        if (Id == 0) return View();
+        if (projSetting.Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.PutAsJsonAsync("ProjectStatus/UpdateDefaultStatus?Id=", Id);
+        await client.PutAsJsonAsync("ProjectStatus/UpdateDefaultStatus?Id=", projSetting);
         return RedirectToAction("Project");
     }
 
@@ -69,9 +69,11 @@ public class ProjectController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpdateProjectStatus(ProjectStatusVM projectStatus)
+    public async Task<IActionResult> UpdateProjectStatus(ProjectStatusVM projectStatus, bool IsDefaultStatus, bool Status)
     {
         if (projectStatus.Id == 0) return View();
+        projectStatus.IsDefaultStatus = IsDefaultStatus;
+        projectStatus.Status = Status;
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         await client.PutAsJsonAsync("ProjectStatus/Update/", projectStatus);
         return RedirectToAction("Project");

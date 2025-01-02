@@ -38,7 +38,7 @@ public class CompanyController : Controller
         CompanyVM company = new();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         ViewBag.BusinessTypes = await client.GetFromJsonAsync<List<BusinessTypeVM>>("BusinessType/GetAll");
-        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<BusinessCategoryVM>>("Category/GetAll");
+        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<BusinessCategoryVM>>("BusinessCategory/GetAll");
         return PartialView("_Create", company);
     }
 
@@ -70,23 +70,23 @@ public class CompanyController : Controller
         return RedirectToAction("Company");
     }
 
-    [HttpGet]
+    //[HttpGet]
+    //public async Task<IActionResult> Delete(int Id)
+    //{
+    //    if (Id == 0) return View();
+    //    var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+    //    ViewBag.BusinessTypes = await client.GetFromJsonAsync<List<BusinessTypeVM>>("BusinessType/GetAll");
+    //    ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<BusinessCategoryVM>>("Category/GetAll");
+    //    var company = await client.GetFromJsonAsync<CompanyVM>("Company/GetById/?{Id}=" + Id);
+    //    return PartialView("_Delete", company);
+    //}
+
+    [HttpPost]
     public async Task<IActionResult> Delete(int Id)
     {
         if (Id == 0) return View();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        ViewBag.BusinessTypes = await client.GetFromJsonAsync<List<BusinessTypeVM>>("BusinessType/GetAll");
-        ViewBag.CategoryTypes = await client.GetFromJsonAsync<List<BusinessCategoryVM>>("Category/GetAll");
-        var company = await client.GetFromJsonAsync<CompanyVM>("Company/GetById/?{Id}=" + Id);
-        return PartialView("_Delete", company);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Delete(CompanyVM company)
-    {
-        if (company.Id == 0) return View();
-        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        await client.DeleteAsync("Company/Delete?Id=" + company.Id);
+        await client.DeleteAsync("Company/Delete?Id=" + Id);
         return RedirectToAction("Company");
     }
 

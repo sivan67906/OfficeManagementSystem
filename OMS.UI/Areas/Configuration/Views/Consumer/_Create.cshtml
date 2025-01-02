@@ -1,6 +1,4 @@
 ﻿@model OMS.UI.Areas.Configuration.ViewModels.ConsumerVM;
-<div class="modal fade" id="mdlConsumerShow">
-	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title mt-0" id="">Consumer Setup</h5>
@@ -34,8 +32,10 @@
 
 					<div class="row">
 						<div class="col-lg-4">
-							<input id="txtPassword" type="text" class="form-control" name="Password" placeholder="enter Password" value="">
-							<span asp-validation-for="Password" class="text-danger"></span>
+							<input class="form-control" name="Password" type="password" value="" id="txtPassword" placeholder="enter Password">
+							<i class="toggle-password fa fa-fw fa-eye-slash"></i>
+							@* <input id="txtPassword" type="text" class="form-control" name="Password" placeholder="enter Password" value=""> *@
+							@* <span asp-validation-for="Password" class="text-danger"></span> *@
 						</div>
 						<div class="col-lg-4">
 							@* <input id="txtPlanTypeId" type="text" class="form-control" name="PlanTypeId" placeholder="enter PlanTypeId" value="">
@@ -73,12 +73,18 @@
 				</form>
 			</div>
 		</div>
-	</div>
-</div>
-@section Scripts {
-	<script type="text/javascript">
+	
+		<script type="text/javascript">
 		$(window).on('load', function() {
 		 $('#mdlConsumerShow').modal({backdrop: 'static', keyboard: false});
 		});
+		 $(".toggle-password").click(function() {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			input = $(this).parent().find("input");
+			if (input.attr("type") == "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+		});
 	</script>
-}

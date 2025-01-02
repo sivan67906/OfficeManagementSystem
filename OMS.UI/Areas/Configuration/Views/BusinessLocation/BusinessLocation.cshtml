@@ -119,7 +119,7 @@
 			  allowOutsideClick: false
 		   }).then((result) => {
 			  if (result.isConfirmed) {
-				 delBusinessLocation();
+				 delBusinessLocation(this);
 			  } else if (
 				 result.dismiss === Swal.DismissReason.cancel
 			  ) {

@@ -46,18 +46,26 @@
 							<td>@(i + 1)</td>
 							<td><span><i class="bi bi-dot bg-info ps-2 pe-2  rounded-circle me-2"></i></span>@Model[i].Name</td>
 							<td>
+								@if (Model[i].Status)
+								{
 								<div class="form-check default_status" data-status-id="@Model[i].Id">
 									<input class="form-check-input" type="radio" name="IsDefaultStatus" id="projRadios1" value="@Model[i].IsDefaultStatus" @(Model[i].IsDefaultStatus ? "checked" : "")>
 									<label class="form-check-label" for="projRadios1">
 									</label>
 								</div>
+								}
+								else
+								{
+									<span>You can not change inactive status to Default status</span>
+								}
 							</td>
 							<td>
 								<button type="button" class="custombuttonaslink" data-toggle="ajax-modal"
 										data-bs-target="#mdlProjectStatusShow" data-url="@Url.Action($"EditProjectStatus/{@Model[i].Id}")">
 									<i class="las la-pen text-secondary font-16"></i>
 								</button>
-								@if(!Model[i].IsDefaultStatus){
+								@if ((!Model[i].IsDefaultStatus))  @* || (!Model[i].Status) *@
+								{
 								<a id="deletePS" name="Id" href="#" class="ms-2"
 									   data-target="" data-url="@Url.Action($"DeleteProjectStatus/{@Model[i].Id}")">
 									<i class="las la-trash-alt text-secondary font-16"></i>
@@ -71,6 +79,7 @@
 		</div>
 	</div><!--end card-body-->
 </div><!--end card-->
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 <script type="text/javascript">
 		$('body').on('click', '.default_status', function () {
@@ -179,4 +188,38 @@
 			  })
 		   }
 		});
+
+
+	var PlaceHolderElements = $('#PlaceHolderHere');
+
+	PlaceHolderElements.on('click', '[data-save="modals"]', function (event) {
+		$("#divBlocker").removeClass("d-none").addClass("screenblocker");
+		var form = $(this).parents('.modal').find('form');
+		$('#PlaceHolderHere').find('input').attr('readonly', 'readonly');
+		$('#PlaceHolderHere').find('button').attr('disabled', true);
+		//$('#PlaceHolderHere option:not(:selected)').attr('disabled', true);
+		$('option:not(:selected)').prop('disabled', true);
+
+
+		var formData = new FormData($('#UpdateProjectStatus')[0]);
+
+			var IsDefaultStatusEnabled = $('input[name="IsDefaultStatus"]').is(":checked");
+			var IsStatusEnabled = $('input[name="Status"]').is(":checked");
+
+			formData.set('IsDefaultStatus', IsDefaultStatusEnabled);
+			formData.set('Status', IsStatusEnabled);
+		
+		$.ajax({
+				url: '@Url.Action("UpdateProjectStatus", "Project")',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(response) {
+					location.reload();
+				}
+			});
+
+	});
+
 </script>

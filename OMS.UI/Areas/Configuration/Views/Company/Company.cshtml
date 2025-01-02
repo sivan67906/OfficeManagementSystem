@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<OMS.UI.Areas.Configuration.ViewModels.CompanyVM>;
 
-<div id="PlaceHolderHere">
+<div class="modal fade" id="mdlCompanyShow" style="">
+	<div class="modal-dialog modal-xl" id="PlaceHolderHere">
+	</div>
 </div>
+
 
 <div class="row">
 	<div class="col-12 col-lg-12">
@@ -56,14 +59,18 @@
 									<td>@item.CategoryName</td>
 									@* <td>@item.Description</td> *@
 									<td>
-										<button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
+										<button type="button" class="custombuttonaslink" data-toggle="ajax-modal"
 												data-target="#mdlCompanyShow" data-url="@Url.Action($"Edit/{item.Id}")">
 											<i class="las la-pen text-secondary font-16"></i>
 										</button>
-										<button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
+										@* <button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
 												data-target="#mdlCompanyShow" data-url="@Url.Action($"Delete/{item.Id}")">
 											<i class="las la-trash-alt text-secondary font-16"></i>
-										</button>
+										</button> *@
+										<a id="deleteBC" name="Id" href="#" class="ms-2"
+										   data-target="#mdlCompanyShow" data-url="@Url.Action($"Delete/{item.Id}")">
+											<i class="las la-trash-alt text-secondary font-16"></i>
+										</a>
 									</td>
 								</tr>
 							}
@@ -79,6 +86,75 @@
 	<script type="text/javascript">
 		$(window).on('load', function() {
 		 $('#mdlCompanyShow').modal({backdrop: 'static', keyboard: false});
+		});
+
+
+				$(document).on("click", "#deleteBC", function (e) {
+		   e.preventDefault();
+
+		   const swalWithBootstrapButtons = Swal.mixin({
+			  customClass: {
+				 confirmButton: "btn btn-de-primary",
+				 cancelButton: "btn btn-de-danger me-2"
+			  },
+			  buttonsStyling: false
+		   });
+		   swalWithBootstrapButtons.fire({
+			  title: "Are you sure?",
+			  text: "Do You want to delete this?",
+			  icon: "warning",
+			  showCancelButton: true,
+			  confirmButtonText: '<i class="mdi mdi-check-all me-2"></i>Delete',
+			  cancelButtonText: '<i class="mdi mdi-window-close me-2"></i>Close',
+			  // confirmButtonText: "Yes, delete it!",
+			  // cancelButtonText: "No, cancel!",
+			  reverseButtons: true,
+			  allowOutsideClick: false
+		   }).then((result) => {
+			  if (result.isConfirmed) {
+				 delBusinessLocation(this);
+			  } else if (
+				 result.dismiss === Swal.DismissReason.cancel
+			  ) {
+				 // swalWithBootstrapButtons.fire({
+				 // title: "Cancelled",
+				 // text: "Your imaginary file is safe :)",
+				 // icon: "error",
+				 // 	allowOutsideClick: false
+				 // });
+			  }
+		   });
+
+		   function delBusinessLocation() {
+			  var url = $("#deleteBC")[0].dataset.url;
+			  url = decodeURIComponent(url);
+			  var sendData = "Id=" + url.split('/').filter(Boolean).pop() + "";
+			  url = url.substring(0, url.lastIndexOf("/"));
+			  var currentUrl = window.location.origin;
+			  url = currentUrl + url;
+			  $.post(url, sendData).done(function (data, status) {
+				 $("#divBlocker").addClass("d-none").removeClass("screenblocker");
+				 if (status == "success") {
+							 swalWithBootstrapButtons.fire({ title: "Deleted!",
+		 text: "Deleted successfully!",
+		 icon: "success",
+			  allowOutsideClick: false}).then(okay => {
+		   if (okay) {
+			location.reload();
+		  }
+		});
+
+				 }
+				 else{
+					 swalWithBootstrapButtons.fire({
+				 title: "Error Occured",
+				 text: "Error Occured while Data deletion",
+				 icon: "error",
+					allowOutsideClick: false
+				 });
+				 }
+			  })
+		   }
 		});
 	</script>
 }

@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<OMS.UI.Areas.Configuration.ViewModels.BusinessTypeVM>;
 
-<div id="PlaceHolderHere">
+<div class="modal fade" id="mdlBusinessTypeShow" style="">
+	<div class="modal-dialog modal-xl" id="PlaceHolderHere">
+	</div>
 </div>
+
 
 <div class="row">
 	<div class="col-12 col-lg-12">
@@ -39,7 +42,7 @@
 									<td class="d-none">@Html.DisplayFor(modelItem => item.Id)</td>
 									<td>@item.Name</td>
 									<td>
-										<button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
+										<button type="button" class="custombuttonaslink" data-toggle="ajax-modal"
 												data-target="#mdlBusinessTypeShow" data-url="@Url.Action($"Edit/{item.Id}")">
 											<i class="las la-pen text-secondary font-16"></i>
 										</button>
@@ -92,7 +95,7 @@
 			  allowOutsideClick: false
 		   }).then((result) => {
 			  if (result.isConfirmed) {
-				 delBusinessType(this);
+				 delBusinessLocation(this);
 			  } else if (
 				 result.dismiss === Swal.DismissReason.cancel
 			  ) {
@@ -105,8 +108,8 @@
 			  }
 		   });
 
-		   function delBusinessType(param) {
-			  var url = $(param).data('url');
+		   function delBusinessLocation() {
+			  var url = $("#deleteBT")[0].dataset.url;
 			  url = decodeURIComponent(url);
 			  var sendData = "Id=" + url.split('/').filter(Boolean).pop() + "";
 			  url = url.substring(0, url.lastIndexOf("/"));

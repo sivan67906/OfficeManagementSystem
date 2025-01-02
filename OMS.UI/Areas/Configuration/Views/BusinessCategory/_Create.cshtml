@@ -4,8 +4,6 @@
 	 
 </script>
 
-<div class="modal fade" id="mdlBusinessCategoryShow">
-	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title mt-0" id="">Create BusinessCategory Setup</h5>
@@ -36,7 +34,7 @@
 						</div>
 						<div class="col-lg-4">
 							<input id="txtCode" type="text" class="form-control" name="Name" placeholder="enter Name" value="">
-							<span asp-validation-for="Name" class="text-danger"></span>
+							@* <span asp-validation-for="Name" class="text-danger"></span> *@
 						</div>
 					</div>
 					<div class="row mt-4 text-end ">
@@ -48,8 +46,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
-</div>
+
 @section Scripts {
 	<script type="text/javascript">
 		$(window).on('load', function() {

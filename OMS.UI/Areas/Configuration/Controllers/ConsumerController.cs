@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OMS.UI.Areas.Configuration.ViewModels;
 
 namespace OMS.UI.Areas.Consumer.Controllers;
@@ -26,10 +27,40 @@ public class ConsumerController : Controller
         ViewData["bParent"] = "Consumer";
         ViewData["bChild"] = "Consumer";
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var consumerList = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetAll");
+        List<ConsumerVM> consumerList = new();
+
+
+
+        if (TempData["SearchData"] == null)
+        {
+            consumerList = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetAll");
+            ViewBag.SearchData = consumerList;
+        }
+        else
+        {
+            consumerList = JsonConvert.DeserializeObject<List<ConsumerVM>>(TempData["SearchData"].ToString());
+            ViewBag.SearchData = consumerList;
+        }
+
         var planTypes = await client.GetFromJsonAsync<List<PlanTypeVM>>("PlanType/GetAll");
         ViewBag.PlanType = planTypes;
-        return View(consumerList);
+        return View();
+    }
+
+    public async Task<IActionResult> Consumer1(List<ConsumerVM> consumer)
+    {
+        // Page Title
+        ViewData["pTitle"] = "Consumers Profile";
+
+        // Breadcrumb
+        ViewData["bGParent"] = "Configuration";
+        ViewData["bParent"] = "Consumer";
+        ViewData["bChild"] = "Consumer";
+        var client = _httpClientFactory.CreateClient("ApiGatewayCall");
+        //var consumerList = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetAll");
+        var planTypes = await client.GetFromJsonAsync<List<PlanTypeVM>>("PlanType/GetAll");
+        ViewBag.PlanType = planTypes;
+        return View(consumer);
     }
 
 
@@ -68,21 +99,26 @@ public class ConsumerController : Controller
     {
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/search?consumerName=" + searchByName);
-        return RedirectToAction("Consumer", consumers);
+        TempData["SearchData"] = JsonConvert.SerializeObject(consumers);
+        return RedirectToAction("Consumer");
     }
     [HttpGet]
     public async Task<IActionResult> SearchByPhoneNumber(string searchByPhoneNumber)
     {
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetSearchByPhoneNumber/?consumerPhoneNumber=" + searchByPhoneNumber);
+        TempData["SearchData"] = JsonConvert.SerializeObject(consumers);
         return View(consumers);
     }
     [HttpGet]
-    public async Task<IActionResult> SearchByDate(string searchByDate)
+    public async Task<IActionResult> SearchByDate(string searchDate)
     {
         ConsumerVM consumerVM = new();
+        var queryString = $"?searchDate={searchDate}";
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
-        var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetSearchByPhoneNumber/?searchDate=" + searchByDate);
+        //var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/searchDate1/?searchDate=" + searchDate);
+        var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/searchDate1/{queryString}");
+        TempData["SearchData"] = JsonConvert.SerializeObject(consumers);
         return View(consumers);
     }
     [HttpGet]
@@ -91,6 +127,7 @@ public class ConsumerController : Controller
         ConsumerVM consumerVM = new();
         var client = _httpClientFactory.CreateClient("ApiGatewayCall");
         var consumers = await client.GetFromJsonAsync<List<ConsumerVM>>("Consumer/GetSearchByDateBetween/?startDate=" + startDate + "&endDate=" + endDate);
+        TempData["SearchData"] = JsonConvert.SerializeObject(consumers);
         return View(consumers);
     }
 

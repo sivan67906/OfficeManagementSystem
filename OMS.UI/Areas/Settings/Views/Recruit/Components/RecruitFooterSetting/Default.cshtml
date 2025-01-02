@@ -1,8 +1,13 @@
 ﻿@using OMS.UI.Areas.Settings.ViewModels
 @model List<RecruitFooterSettingVM>
 
-<div class="modal fade" id="mdlProjectStatusShow" style="">
+@* <div class="modal fade" id="mdlProjectStatusShow" style="">
 	<div class="modal-dialog" id="PlaceHolderHere">
+	</div>
+</div> *@
+
+<div class="modal fade" id="mdlRecruitFooterSettingShow" style="">
+	<div class="modal-dialog modal-xl" id="PlaceHolderHere">
 	</div>
 </div>
 
@@ -13,9 +18,13 @@
 				<h4 class="card-title">Footer Index</h4>
 			</div><!--end col-->
 			<div class="col-auto">
-				<button type="button" class="btn btn-de-primary" data-bs-toggle="modal"
+				@* <button type="button" class="btn btn-de-primary" data-bs-toggle="modal"
 				data-animation="bounce" data-bs-target=".bs-addNewFooterSource-modal-lg">
 					<i class="fas fa-plus me-2"></i>Add Footer Link
+				</button> *@
+				<button type="button" class="btn btn-de-primary" data-toggle="ajax-modal"
+						data-target="#mdlRecruitFooterSettingShow" data-url="@Url.Action("Create")">
+					<i class="fas fa-plus me-2"></i>Add Recruit FooterSetting
 				</button>
 			</div><!--end col-->
 		</div>  <!--end row-->
@@ -47,8 +56,12 @@
 										data-bs-target="#mdlRecruitFooterSettingShow" data-url="@Url.Action($"EditRecruitFooterSetting/{@Model[i].Id}")">
 									<i class="las la-pen text-secondary font-16"></i>
 								</button>
-								<a id="deleteRFS" name="Id" href="#" class="ms-2"
+								@* <a id="deleteRFS" name="Id" href="#" class="ms-2"
 								   data-target="" data-url="@Url.Action($"DeleteRecruitFooterSetting/{@Model[i].Id}")">
+									<i class="las la-trash-alt text-secondary font-16"></i>
+								</a> *@
+								<a id="deleteRFS" name="Id" href="#" class="ms-2"
+								   data-target="#mdlRecruitFooterSettingShow" data-url="@Url.Action($"DeleteRecruitFooterSetting/{@Model[i].Id}")">
 									<i class="las la-trash-alt text-secondary font-16"></i>
 								</a>
 							</td>
